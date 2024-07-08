@@ -1,0 +1,24 @@
+.button-slide {
+    display: flex;
+    //justify-content: flex-start;
+    //width: 96px;
+    //height: 20px;
+    position: absolute;
+    top: -18px;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+
+    img {
+        height: 18px;
+    }
+    &__before {
+        //left: 520px;
+        padding-right: 90px;
+    }
+    &__after {
+        //right: 40.9em;
+        padding-left: 90px;
+    }
+}

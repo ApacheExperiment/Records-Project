@@ -1,0 +1,39 @@
+.button-play-pause {
+    display: flex;
+    //justify-content: flex-start;
+    
+    position: absolute;
+    top: -17px;
+    transform: translateY(-50%);
+    /*background: transparent;*/
+    border: none;
+    cursor: pointer;
+    .button-play {
+        //width: 96px;
+        //height: 20px;
+        background: transparent;
+        border: none;
+    }
+    .button-pause {
+        //width: 96px;
+        //height: 20px;
+        background: transparent;
+        border: none;
+    }
+    img {
+        height: 18px;
+    }
+    .play-icon {
+        left: 50px;
+        //padding-right: 25px;
+    }
+    .pause-icon {
+        right: 40px;
+        //padding-left: 25px;
+    }
+}
+/*@media screen and (max-width: 1440px) {
+    .button-play-pause {
+        //top: 47%;
+    }
+}*/

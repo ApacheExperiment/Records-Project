@@ -1,0 +1,119 @@
+.artist {
+    .band {
+        display: flex;
+        flex-direction: row-reverse;
+        margin-bottom: 15px;
+        &__profile {
+            display:flex;
+            justify-content: flex-end;
+            margin: 50px 300px 0 0;
+            height: 250px;
+            .band__picture {
+                border-radius: 150px;
+            }
+        }
+        &__text {
+            display: flex;
+            flex-direction: column;
+            margin: 50px 0 0 300px;
+            .band__name {
+                font-size: 30px;
+                font-weight: 600;
+                margin: 0;
+            }
+            .band__description {
+                display: flex;
+                align-items: center;
+                .details {
+                    padding-left: 20px;
+                }
+            }
+            .band__biographie {
+                display: flex;
+                .textAndMore {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-end;
+                    .details {
+                        padding-top: 5px;
+                        padding-left: 20px;
+                    }
+                    .ArrowNext {
+                        display: flex;
+                        margin-bottom: 10px;
+                    }
+                }
+            }
+        }
+    }
+    .realese {
+        display:flex;
+        .filters-left {
+            display: flex;
+            flex-direction: column;
+            margin-left: 300px;
+            margin-right: 50px;
+            margin-top: 20px;
+            .filter {
+                width: 130px;
+                height: 30px;
+                background-color: rgba(84, 47, 21, 0.43);
+                color: #ffffff;
+                font-weight: 500;
+                padding-left: 10px;
+                padding-top: 5px;
+                border-top-right-radius: 15px;
+                margin-bottom: 10px;
+            }
+        }
+        .discographie {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            margin-top: 20px;
+            .filters-right {
+                display: flex;
+                .filter {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    width: 860px;
+                    height: 30px;
+                    background-color: rgba(84, 47, 21, 0.43);
+                    color: #ffffff;
+                    font-weight: 500;
+                    padding-left: 20px;
+                    padding-right: 30px;
+                    padding-top: 5px;
+                    border-top-right-radius: 25px;
+                    margin-bottom: 10px;
+                }
+            }
+            .records {
+                display: flex;
+                align-items: center;
+                width: 910px;
+                border-bottom: #cec9c9 1px solid;
+                padding-bottom: 10px;
+                .cover {
+                    width: 100px;
+                    height: 100px;
+                    background-color: #cec9c9;
+                }
+                .name-years-space {
+                    display: flex;
+                    width: 770px;
+                    justify-content: space-between;
+                    .records__name {
+                        margin-left: 20px;
+                    }
+                    /*.years-realese {
+                        text-align:right;
+                    }*/
+                }
+            }
+        }
+    }
+}

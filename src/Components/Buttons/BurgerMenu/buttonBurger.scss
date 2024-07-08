@@ -1,0 +1,99 @@
+.burgerMenu {
+    position: relative;
+    display: inline-block;
+}
+.burgerButton {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 10;
+    margin-right: 80px;
+
+    &.open .burgerLine {
+        background-color: rgb(205, 203, 203);
+    }
+}
+
+.burgerLine {
+    width: 30px;
+    height: 3px;
+    background-color: #000000;
+    transition: all 0.3s linear;
+    position: relative;
+}
+.dropdownMenu {
+    position: absolute;
+    top: 48px;
+    right: 30px;
+    width: 100%;
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    //box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin-top: 8px;
+    z-index: 5;
+    .wrap-menu {
+        border-bottom: 1px solid black;
+        border-top: 1px solid black;
+    }
+}
+    .submenu {
+        position: absolute;
+        top: 0;
+        left: 123px;
+        width: 200px;
+        background-color: #f4f4f4;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        //box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+        margin-left: 8px;
+        z-index: 5;
+        .wrap-submenu {
+            border-bottom: 1px solid black;
+            border-top: 1px solid black;
+        }
+    }
+    .pointer {
+        cursor:pointer;
+    }
+.burgerButton.open .burgerLine:nth-child(1) {
+    transform: rotate(45deg);
+    top: 15px;
+    position: absolute;
+}
+
+.burgerButton.open .burgerLine:nth-child(2) {
+    opacity: 0;
+}
+
+.burgerButton.open .burgerLine:nth-child(3) {
+    transform: rotate(-45deg);
+    top: 15px;
+    position: absolute;
+}
+
+@media screen and (max-width: 1440px) {
+    .burgerButton {
+        margin-right: 70px;
+    }
+}
+@media screen and (max-width: 1024px) {
+    .burgerButton {
+        margin-right: 45px;
+    }
+}
+@media screen and (max-width: 768px) {
+    .burgerButton {
+        width: 25px;
+        height: 25px;
+        margin-right: 25px;
+    }
+}

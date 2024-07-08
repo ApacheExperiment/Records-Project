@@ -1,0 +1,104 @@
+.nav {
+    display:flex;
+    align-items: center;
+
+    .searchContainer {
+        position: relative;
+        width: 100%;
+
+        .searchBar {
+            width: 590px;
+            height: 45px;
+            border: none;
+            border-radius: 3px;
+            padding-left: 10px;
+            margin-right: 250px;
+            margin-left: 120px;
+        }
+        .iconSearch {
+            position: absolute;
+            top: 30%;
+            right: 270px;
+            width: 17px;
+            height: 17px;
+            cursor: pointer;
+            /*pointer-events: none;  /* Empêche l'icône d'interférer avec les clics dans l'input */
+        }
+    }
+    .buttonsWrap {
+        display: flex;
+        gap: 35px;
+    }
+}
+
+@media screen and (max-width: 1440px) {
+    .nav {
+        .searchContainer {
+            .searchBar {
+                width: 520px;
+                padding-left: 10px;
+                /*margin-right: 45px;
+                margin-left: 45px;*/
+                padding-left: 10px;
+                margin-right: 120px;
+                margin-left: 90px;
+            }
+            .iconSearch {
+                right: 140px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .nav {
+        .searchContainer {
+            .searchBar {
+                width: 450px;
+                height: 40px;
+                margin-right: 70px;
+                margin-left: 40px;
+            }
+            .iconSearch {
+                right: 100px;
+            }
+        }
+        .buttonsWrap {
+            display: flex;
+            gap: 20px;
+        }
+    }
+}
+@media screen and (max-width: 780px) {
+    .nav {
+        //flex-direction: column;
+        .searchContainer {
+            .searchBar {
+                width: 320px;
+                margin-right: 70px;
+                margin-left: 60px;
+            }
+            .iconSearch {
+                right: 80px;
+            }
+        }
+        .buttonsWrap {
+            display: flex;
+            gap: 15px;
+        }
+    }
+}
+@media screen and (max-width: 650px) {
+    .nav {
+        .searchContainer {
+            .searchBar {
+                width: 0px;
+                margin:0;
+            }
+            .iconSearch {
+                width: 20px;
+                height: 20px;
+            }
+        }
+    }
+}
