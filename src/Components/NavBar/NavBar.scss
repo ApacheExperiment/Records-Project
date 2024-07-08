@@ -12,13 +12,13 @@
             border: none;
             border-radius: 3px;
             padding-left: 10px;
-            margin-right: 250px;
-            margin-left: 120px;
+            margin-right: 150px;
+            margin-left: 100px;
         }
         .iconSearch {
             position: absolute;
             top: 30%;
-            right: 270px;
+            right: 170px;
             width: 17px;
             height: 17px;
             cursor: pointer;
@@ -90,14 +90,34 @@
 }
 @media screen and (max-width: 650px) {
     .nav {
+        //flex-direction: column;
         .searchContainer {
+            //margin-bottom: 20px;
             .searchBar {
-                width: 0px;
-                margin:0;
+                width: 200px;
+                //margin: 0;
+                margin-right: 50px;
+                margin-left: 40px;
             }
             .iconSearch {
-                width: 20px;
-                height: 20px;
+                width: 17px;
+                height: 17px;
+                right: 65px;
+            }
+        }
+    }
+}
+@media screen and (max-width: 492px) {
+    .nav {
+        .searchContainer {
+            .searchBar {
+                width: 63%;
+                //margin: 0;
+                margin-right: 40px;
+                margin-left: 30px;
+            }
+            .iconSearch {
+                right: 23%;
             }
         }
     }

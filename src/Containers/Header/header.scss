@@ -5,7 +5,10 @@ header {
     //justify-content: space-evenly;
     background-color: rgba(84,47,21,0.43);
     padding: 10px;
-
+    .row {
+      display: flex;
+      align-items: center;
+    }
     /*a, img {
       margin-right: 20px;
     }*/
@@ -18,9 +21,12 @@ header {
     justify-content: space-evenly;
   }
 }*/
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 650px) {
   header {
     display: flex;
     //flex-direction: column;
+    /*.row {
+      margin-bottom: 10px;
+    }*/
   }
 }

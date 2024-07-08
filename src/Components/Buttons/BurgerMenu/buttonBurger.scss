@@ -44,26 +44,26 @@
         border-top: 1px solid black;
     }
 }
-    .submenu {
-        position: absolute;
-        top: 0;
-        left: 123px;
-        width: 200px;
-        background-color: #f4f4f4;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        //box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        padding: 10px;
-        margin-left: 8px;
-        z-index: 5;
-        .wrap-submenu {
-            border-bottom: 1px solid black;
-            border-top: 1px solid black;
-        }
+.submenu {
+    position: absolute;
+    top: 0;
+    left: 123px;
+    width: 100%;
+    background-color: #f4f4f4;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    //box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin-left: 8px;
+    z-index: 5;
+    .wrap-submenu {
+        border-bottom: 1px solid black;
+        border-top: 1px solid black;
     }
-    .pointer {
-        cursor:pointer;
-    }
+}
+.pointer {
+    cursor:pointer;
+}
 .burgerButton.open .burgerLine:nth-child(1) {
     transform: rotate(45deg);
     top: 15px;
@@ -84,16 +84,47 @@
     .burgerButton {
         margin-right: 70px;
     }
+    .submenu {
+        left: 113px;
+    }
+}
+@media screen and (max-width: 1096px) {
+    .dropdownMenu {
+        right: 0px;
+    }
+    .submenu {
+        left: 88px;
+    }
 }
 @media screen and (max-width: 1024px) {
     .burgerButton {
         margin-right: 45px;
     }
 }
+@media screen and (max-width: 826px) {
+    .dropdownMenu {
+        right: -20px;
+    }
+    /*.submenu {
+        left: 88px;
+    }*/
+}
 @media screen and (max-width: 768px) {
     .burgerButton {
         width: 25px;
         height: 25px;
         margin-right: 25px;
+    }
+    .dropdownMenu {
+        margin-top: 6px;
+    }
+    .submenu {
+        left: 63px;
+    }
+}
+
+@media screen and (max-width: 489px) {
+    .dropdownMenu {
+        margin-top: 1px;
     }
 }

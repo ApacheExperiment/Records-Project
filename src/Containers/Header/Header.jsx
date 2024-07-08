@@ -7,11 +7,13 @@ import "./header.scss";
 
 function Header() {
     return (
-      <header>  
-        <ButtonBurger />
-        <Link to="/" id="header">
-          <img src={Logo} alt="logo records" className='logo' />
-        </Link>
+      <header> 
+        <div className="row">
+          <ButtonBurger />
+          <Link to="/" id="header">
+            <img src={Logo} alt="logo records" className='logo' />
+          </Link>
+        </div> 
         <NavBar />
       </header>
       
