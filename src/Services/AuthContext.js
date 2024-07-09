@@ -1,4 +1,3 @@
-// src/context/AuthContext.js
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import pb from '../pocketbase';
 
@@ -7,8 +6,9 @@ const AuthContext = createContext();
 
 // Définition du fournisseur de contexte d'authentification
 export const AuthProvider = ({ children }) => {
-  // État pour suivre si l'utilisateur est authentifié
+  // État pour suivre si l'utilisateur est authentifié et son type
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userType, setUserType] = useState(null); // 'admin' ou 'user'
 
   // Utilisation de useEffect pour vérifier l'authentification lors du montage du composant
   useEffect(() => {
@@ -16,8 +16,16 @@ export const AuthProvider = ({ children }) => {
       const admin = pb.authStore.model;
       if (admin) {
         setIsAuthenticated(true);
+        setUserType('admin');
       } else {
-        setIsAuthenticated(false);
+        const user = await pb.collection('users').authRefresh();
+        if (user) {
+          setIsAuthenticated(true);
+          setUserType('user');
+        } else {
+          setIsAuthenticated(false);
+          setUserType(null);
+        }
       }
     };
 
@@ -28,6 +36,7 @@ export const AuthProvider = ({ children }) => {
       checkAuth();
     } else {
       setIsAuthenticated(false);
+      setUserType(null);
     }
   }, []);
 
@@ -37,9 +46,19 @@ export const AuthProvider = ({ children }) => {
       await pb.admins.authWithPassword(email, password);
       document.cookie = pb.authStore.exportToCookie({ httpOnly: false }); // Stockez le token dans le cookie
       setIsAuthenticated(true);
-    } catch (error) {
+      setUserType('admin');
+    } catch (adminError) {
       setIsAuthenticated(false);
-      throw error;
+      try {
+        await pb.collection('users').authWithPassword(email, password);
+        document.cookie = pb.authStore.exportToCookie({ httpOnly: false }); // Stockez le token dans le cookie
+        setIsAuthenticated(true);
+        setUserType('user');
+      } catch (userError) {
+        setIsAuthenticated(false);
+        setUserType(null);
+        throw userError;
+      }
     }
   };
 
@@ -48,11 +67,12 @@ export const AuthProvider = ({ children }) => {
     pb.authStore.clear();
     document.cookie = pb.authStore.exportToCookie({ httpOnly: false }); // Supprimez le token du cookie
     setIsAuthenticated(false);
+    setUserType(null);
   };
 
   return (
     // Fournit le contexte d'authentification aux composants enfants
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, userType, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

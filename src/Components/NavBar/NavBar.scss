@@ -28,6 +28,13 @@
     .buttonsWrap {
         display: flex;
         gap: 35px;
+        
+        .iconLog {
+            cursor: pointer;
+        }
+        .iconBasket {
+            cursor: pointer;
+        }
     }
 }
 

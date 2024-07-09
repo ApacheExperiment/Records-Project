@@ -5,17 +5,23 @@ import arrow from "../assets/img/Icon/icon-arrow-left.webp";
 import { useAuth } from '../Services/AuthContext';
 
 export default function Login() {
+    const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const { login } = useAuth();
     const navigate = useNavigate();
 
+    //Rendue visible du mot de passe pour le champs de saisie
+    const togglePassWordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             await login(email, password);
-            navigate('/add');
+            navigate('/profile');
         } catch (error) {
             console.error('La connexion a échoué:', error);
             setErrorMessage("Adresse e-mail ou mot de passe incorrect");
@@ -45,16 +51,26 @@ export default function Login() {
                         required
                         className="inputLog" 
                     />
-                    <label htmlFor="password" className="labelLog">Mot de passe</label>
-                    <input 
-                        type="password" 
-                        name="password"
-                        id="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                        className="inputLog" 
-                    />
+                    <div className="Wrap-pswd">
+                        <label htmlFor="password" className="labelPswd">Mot de passe</label>
+                        <input 
+                            type={showPassword ? "text" : "password"}
+                            name="password"
+                            id="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                            className="inputPswd" 
+                        />
+                        <span
+                            className={`password-toggle-icon ${
+                                showPassword
+                                ? "reveal-icon fa fa-eye-slash"
+                                : "fa fa-eye"
+                            }`}
+                            onClick={togglePassWordVisibility}>
+                        </span>
+                    </div>
                     <p className="forgotPswd">Mot de passe oublié ?</p>
                     <button 
                     type="submit" 

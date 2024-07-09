@@ -47,6 +47,35 @@
                 border-radius: 5px;
                 font-size: 16px;
             }
+            .Wrap-pswd {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                .labelPswd {
+                    font-size: 18px;
+                    margin: 15px 0 5px;
+                    font-weight: bold;
+                    color: rgba(84,47,21,0.43);
+                }
+                .inputPswd {
+                    margin: 10px 0 5px 0;
+                    padding: 10px;
+                    border: 2px solid rgba(84, 47, 21, 0.43);
+                    border-radius: 5px;
+                    font-size: 16px;
+                }
+                .password-toggle-icon {
+                    font-size: 1.2rem;
+                    position: absolute;
+                    right: 12px;
+                    bottom: 14px;
+                    .fa-eye {
+                        right: 6px;
+                    }
+                }
+            }
             .alreadyRegistered {
                 font-size: 12px;
                 margin: 0 0 20px 0;

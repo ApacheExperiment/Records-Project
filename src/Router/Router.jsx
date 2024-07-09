@@ -5,6 +5,8 @@ import Footer from '../Containers/Footer/Footer';
 import Home from '../Pages/Home';
 import Login from '../Pages/Login';
 import Register from '../Pages/Register';
+import Profile from '../Pages/Profile'
+import ProfileAdmin from '../Pages/ProfileAdmin';
 import Band from '../Pages/Band';
 import Add from '../Pages/Add';
 import { useAuth } from '../Services/AuthContext';
@@ -27,6 +29,24 @@ export default function Router() {
                         // Route protégée, ne peut être accédée que si l'utilisateur est authentifié
                         <ProtectedRoute 
                             element={<Add />} 
+                            isAuthenticated={isAuthenticated} 
+                        />
+                    }
+                />
+                <Route 
+                    path="/profile" 
+                    element={
+                        <ProtectedRoute 
+                            element={<Profile/>}
+                            isAuthenticated={isAuthenticated} 
+                        />
+                    }
+                />
+                <Route 
+                    path="/profile-admin" 
+                    element={
+                        <ProtectedRoute 
+                            element={<ProfileAdmin/>}
                             isAuthenticated={isAuthenticated} 
                         />
                     }
