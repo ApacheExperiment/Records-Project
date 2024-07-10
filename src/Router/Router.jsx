@@ -51,7 +51,7 @@ export default function Router() {
                         />
                     }
                 />
-                <Route path="band" element={<Band/>}></Route>
+                <Route path="/band/:bandId" element={<Band/>}></Route>
             </Routes>
             <Footer />
         </BrowserRouter>

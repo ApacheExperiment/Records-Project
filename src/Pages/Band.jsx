@@ -1,56 +1,83 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import './band.scss'
-import band from '../assets/img/Groupe/Blut_Aus_Nord.gif'
+//import band from '../assets/img/Groupe/Blut_Aus_Nord.gif'
+import pb from '../pocketbase';
 import ArrowRight from '../assets/img/Icon/arrow-right.png'
 
 export default function Band() {
+    const { bandId } = useParams();
+    const [bandData, setBandData] = useState(null);
+
+    useEffect(() => {
+        const fetchBandData = async () => {
+            try {
+                const response = await pb.collection('Band').getOne(bandId);
+                setBandData(response);
+            } catch (error) {
+                console.error("Error fetching band data:", error);
+            }
+        };
+
+        fetchBandData();
+    }, [bandId]);
+
+    if (!bandData) {
+        return <div>Loading...</div>;
+    }
+    const logoUrl = bandData.LogoBand ? pb.getFileUrl(bandData, bandData.LogoBand) : null;
 
     return (
         <div className="artist">
             <div className="band">
                 <div className="band__profile">
-                    <img
-                    src={band}
-                    alt="groupe"
-                    width={250}
-                    height={250}
-                    className="band__picture"
-                    />
+                    {logoUrl ? (
+                        <img
+                            src={logoUrl}
+                            alt="groupe"
+                            width={250}
+                            height={250}
+                            className="band__picture"
+                        />
+                    ) : (
+                        <div className="placeholder-image">No image available</div>
+                    )}
                 </div>
                 <div className="band__text">
-                    <h2 className="band__name">Blut Aus Nord</h2>
+                    <h2 className="band__name">{bandData.NameBand}</h2>
                     <div className="band__description">
                         <h3>Status:</h3>
-                        <p className="details">Actif</p>
+                        <p className="details">{bandData.StatusBand}</p>
                     </div>
                     <div className="band__description">
                         <h3>Formé en:</h3>
-                        <p className="details">1994</p>
+                        <p className="details">{bandData.FormedIn}</p>
                     </div>
                     <div className="band__description">
                         <h3>Années d'activités:</h3>
-                        <p className="details">1993-1994 (Anciennement Vlad), 1994-maintenant</p>
+                        <p className="details">{bandData.YearOfActivity}</p>
                     </div>
                     <div className="band__description">
                         <h3>Localisation:</h3>
-                        <p className="details">France, Normandie, Mondeville</p>
+                        <p className="details">{bandData.LocationBand}</p>
                     </div>
                     <div className="band__description">
                         <h3>Label actuel:</h3>
-                        <p className="details">Debemur Morti</p>
+                        <p className="details">{bandData.CurrentLabel}</p>
                     </div>
                     <div className="band__description">
                         <h3>Genre:</h3>
-                        <p className="details">Atmospheric Black Metal, Avant-garde/Black/Industrial Metal/Dark Ambient</p>
+                        <p className="details">{bandData.Genre}</p>
                     </div>
                     <div className="band__description">
                         <h3>Liens:</h3>
-                        <p className="details">Bandcamp, Spotify, Deezer, Facebook, Instagram, Debemur</p>
+                        <Link to={bandData.Links} className="details" target="_blank" rel="noopener noreferrer">Bandcamp</Link>
                     </div>
                     <div className="band__biographie">
                         <h3>Biographie:</h3>
                         <div className="textAndMore">
-                            <p className="details">En 1993, Vindsval lance un projet solo appelé Vlad, nom inspiré de Vlad III l'Empaleur. Après deux démos — In the Mist en 1993 et Yggdrasil en 1994 —, Vlad change de nom pour Blut aus Nord. Alors que les labels commencent à s'intéresser à son travail, Vindsval décide de recruter d'autres musiciens1. Il endosse le rôle de chanteur et guitariste pendant que GhÖst s'occupe de la basse et W.D. Feld de la batterie et du clavier.</p>
+                            <p className="details">{bandData.Biography}</p>
                             <img
                             src={ArrowRight}
                             alt="Plus d'informations"
