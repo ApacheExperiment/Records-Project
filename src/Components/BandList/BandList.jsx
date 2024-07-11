@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import pb from '../pocketbase';
+import pb from '../../pocketbase';
 
 function BandList() {
     const [bands, setBands] = useState([]);

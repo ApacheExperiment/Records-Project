@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import './band.scss'
+import './band.scss';
 //import band from '../assets/img/Groupe/Blut_Aus_Nord.gif'
 import pb from '../pocketbase';
-import ArrowRight from '../assets/img/Icon/arrow-right.png'
+import ArrowRight from '../assets/img/Icon/arrow-right.png';
+import Discography from '../Components/Discography/Discography';
 
 export default function Band() {
     const { bandId } = useParams();
@@ -89,105 +90,7 @@ export default function Band() {
                     </div>
                 </div>
             </div>
-            <div className="realese">
-                    <div className="filters-left">
-                        <div className="filter">Sorties</div>
-                        <p>Albums</p>
-                        <p>EPs</p>
-                        <p>Singles</p>
-                        <p>Compilations</p>
-                        <div className="filter">Apapritions</div>
-                        <p>Albums</p>
-                        <p>Compilations</p>
-                        <div className="filter">Non Officiel</div>
-                        <p>Albums</p>
-                        <p>Compilations</p>
-                        <div className="filter">Crédits</div>
-                        <p>Albums</p>
-                        <p>Compilations</p>
-                    </div>
-                    <div className="discographie">
-                        <div className="filters-right">
-                            <div className="filter">
-                                <p>Albums</p>
-                                <p>Label</p>
-                                <p>Année</p>
-                            </div>
-                        </div>
-                        <div className="records">
-                            <div className="cover"></div>
-                            <div className="name-years-space">
-                                <p className="records__name">Ultima Thulée</p>
-                                <p>Impure Creations Records</p>
-                                <p className="years-realese">1995</p>
-                            </div>
-                        </div>
-                        <div className="records">
-                            <div className="cover"></div>
-                            <div className="name-years-space">
-                                <p className="records__name">Memoria Vetusta I «Fathers Of The Icy Age»</p>
-                                <p>Impure Creations Records</p>
-                                <p className="years-realese">1996</p>
-                            </div>
-                        </div>
-                        <div className="records">
-                            <div className="cover"></div>
-                            <div className="name-years-space">
-                                <p className="records__name">The Mystical Beast Of Rebellion</p>
-                                <p>Oaken Shield</p>
-                                <p className="years-realese">2001</p>
-                            </div>
-                        </div>
-                        <div className="records">
-                            <div className="cover"></div>
-                            <div className="name-years-space">
-                                <p className="records__name">The Work Which Transforms God</p>
-                                <p>Appease Me...</p>
-                                <p className="years-realese">2003</p>
-                            </div>
-                        </div>
-                        <div className="records">
-                            <div className="cover"></div>
-                            <div className="name-years-space">
-                                <p className="records__name">Thematic Emanation Of Archetypal Multiplicity</p>
-                                <p>Candlelight Records</p>
-                                <p className="years-realese">2005</p>
-                            </div>
-                        </div>
-                        <div className="records">
-                            <div className="cover"></div>
-                            <div className="name-years-space">
-                                <p className="records__name">MoRT</p>
-                                <p>Candlelight Records</p>
-                                <p className="years-realese">2006</p>
-                            </div>
-                        </div>
-                        <div className="records">
-                            <div className="cover"></div>
-                            <div className="name-years-space">
-                                <p className="records__name">Odinist - The Destruction Of Reason By Illumination</p>
-                                <p>Candlelight Records</p>
-                                <p className="years-realese">2007</p>
-                            </div>
-                        </div>
-                        <div className="records">
-                            <div className="cover"></div>
-                            <div className="name-years-space">
-                                <p className="records__name">Bloodoline / Reverence / Blut Aus Nord / Karras – Dissociated Human Junction</p>
-                                <p>Panik Terror Musik</p>
-                                <p className="years-realese">2007</p>
-                            </div>
-                        </div>
-                        <div className="records">
-                            <div className="cover"></div>
-                            <div className="name-years-space">
-                                <p className="records__name">Memoria Vetusta II - Dialogue With The Stars</p>
-                                <p>Candlelight Records</p>
-                                <p className="years-realese">2009</p>
-                            </div>
-                        </div>
-                    </div>
-            </div>
+            <Discography bandId={bandId} />
         </div>
     );
 }
