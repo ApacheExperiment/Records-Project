@@ -3,9 +3,9 @@ import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import './band.scss';
 //import band from '../assets/img/Groupe/Blut_Aus_Nord.gif'
-import pb from '../pocketbase';
-import ArrowRight from '../assets/img/Icon/arrow-right.png';
-import Discography from '../Components/Discography/Discography';
+import pb from '../../pocketbase';
+import ArrowRight from '../../assets/img/Icon/arrow-right.png';
+import Discography from '../../Components/Discography/Discography';
 
 export default function Band() {
     const { bandId } = useParams();
@@ -73,7 +73,7 @@ export default function Band() {
                     </div>
                     <div className="band__description">
                         <h3>Liens:</h3>
-                        <Link to={bandData.Links} className="details" target="_blank" rel="noopener noreferrer">Bandcamp</Link>
+                        <Link to={bandData.Links} className="details" target="_blank" rel="noopener noreferrer">Sites</Link>
                     </div>
                     <div className="band__biographie">
                         <h3>Biographie:</h3>

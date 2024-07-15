@@ -1,19 +1,23 @@
 import React, { useState, useEffect, useRef } from 'react';
+import IconGroup from "./IconGroup";
 import  "./buttonBurger.scss";
 
 export default function ButtonBurger() {
     const [isOpen, setIsOpen] = useState(false);
     const [activeItem, setActiveItem] = useState(null);
+    const [activeSubItem, setActiveSubItem] = useState(null);
     const menuRef = useRef(null);
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
         setActiveItem(null);
+        setActiveSubItem(null);
     };
     const handleClickOutside = (event) => {
         if (menuRef.current && !menuRef.current.contains(event.target)) {
             setIsOpen(false);
             setActiveItem(null);
+            setActiveSubItem(null);
         }
     };
     useEffect(() => {
@@ -30,9 +34,11 @@ export default function ButtonBurger() {
 
     const handleItemClick = (item) => {
         if (activeItem === item) {
-            setActiveItem(null); // Close the submenu if the same item is clicked
+            setActiveItem(null);
+            setActiveSubItem(null);
         } else {
-            setActiveItem(item); // Open the submenu for the clicked item
+            setActiveItem(item);
+            setActiveSubItem(null);
         }
     };
     
@@ -45,26 +51,12 @@ export default function ButtonBurger() {
             </button>
             {isOpen && (
                 <div className="dropdownMenu">
-                    <div className="wrap-menu">
-                        <p onClick={() => handleItemClick('explorer')} className="pointer">Explorer</p>
-                        {activeItem === 'explorer' && (
-                            <div className="submenu">
-                                <div className="wrap-submenu">
-                                    <p className="pointer">Format</p>
-                                    <p className="pointer">Genre</p>
-                                </div>
-                            </div>
-                        )}
-                        <p onClick={() => handleItemClick('marche')} className="pointer">Marché</p>
-                        {activeItem === 'marche' && (
-                            <div className="submenu">
-                                <div className="wrap-submenu">
-                                    <p className="pointer">Acheter</p>
-                                    <p className="pointer">Vendre</p>
-                                </div>
-                            </div>
-                        )}
-                    </div>
+                    <IconGroup 
+                    handleItemClick={handleItemClick} 
+                    activeItem={activeItem} 
+                    activeSubItem={activeSubItem} 
+                    setActiveSubItem={setActiveSubItem}
+                    />
                 </div>
             )}
         </div>

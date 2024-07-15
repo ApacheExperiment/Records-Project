@@ -1,11 +1,11 @@
 import React, { useEffect, useState }  from 'react';
 import { /*Link,*/ useNavigate } from "react-router-dom";
 /*import {NavLink} from 'react-router-dom';*/
-import Disconnected from '../../assets/img/Icon/Initial/icon-user.png'
-import Connected from '../../assets/img/Icon/Reverse/icon-user-Reverse.png'
-import LogoutIcon from '../../assets/img/Icon/Reverse/icon-login.png'
+import Disconnected from '../../assets/img/Icon/Initial/icon-user.webp'
+import Connected from '../../assets/img/Icon/Reverse/icon-user-Reverse.webp'
+import LogoutIcon from '../../assets/img/Icon/Reverse/icon-login.webp'
 import iconSearch from '../../assets/img/Icon/icon-search.png'
-import iconbasket from '../../assets/img/Icon/icon-caddy.png'
+import iconbasket from '../../assets/img/Icon/Initial/icon-caddy.webp'
 import { useAuth } from '../../Services/AuthContext';
 import pb from '../../pocketbase';
 import './NavBar.scss'

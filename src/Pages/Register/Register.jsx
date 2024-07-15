@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link, useNavigate  } from "react-router-dom";
 import './register.scss'
-import arrow from "../assets/img/Icon/icon-arrow-left.webp";
-import Logo from "../assets/img/Icon/vinyl-run.png";
-import pb from '../pocketbase';
+import arrow from "../../assets/img/Icon/icon-arrow-left.webp";
+import Logo from "../../assets/img/Icon/vinyl-run.png";
+import pb from '../../pocketbase';
 
 export default function Register() {
     const [showPassword, setShowPassword] = useState(false);

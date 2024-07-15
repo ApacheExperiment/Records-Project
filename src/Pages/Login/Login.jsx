@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import './login.scss'
-import arrow from "../assets/img/Icon/icon-arrow-left.webp";
-import { useAuth } from '../Services/AuthContext';
+import arrow from "../../assets/img/Icon/icon-arrow-left.webp";
+import { useAuth } from '../../Services/AuthContext';
 
 export default function Login() {
     const [showPassword, setShowPassword] = useState(false);

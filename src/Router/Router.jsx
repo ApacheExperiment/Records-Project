@@ -2,12 +2,12 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from '../Containers/Header/Header';
 import Footer from '../Containers/Footer/Footer';
-import Home from '../Pages/Home';
-import Login from '../Pages/Login';
-import Register from '../Pages/Register';
+import Home from '../Pages/Home/Home';
+import Login from '../Pages/Login/Login';
+import Register from '../Pages/Register/Register';
 import Profile from '../Pages/Profile'
 import ProfileAdmin from '../Pages/ProfileAdmin';
-import Band from '../Pages/Band';
+import Band from '../Pages/Band/Band';
 import Add from '../Pages/Add';
 import { useAuth } from '../Services/AuthContext';
 import ProtectedRoute from '../Services/ProtectedRoute';
