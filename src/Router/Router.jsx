@@ -6,7 +6,7 @@ import Home from '../Pages/Home/Home';
 import Login from '../Pages/Login/Login';
 import Register from '../Pages/Register/Register';
 import Profile from '../Pages/User/Profile'
-import ProfileAdmin from '../Pages/ProfileAdmin';
+import ProfileAdmin from '../Pages/Admin/ProfileAdmin';
 import Band from '../Pages/Band/Band';
 import Add from '../Pages/Add';
 import { useAuth } from '../Services/AuthContext';
