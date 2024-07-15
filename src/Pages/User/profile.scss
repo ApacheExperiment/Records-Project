@@ -1,0 +1,52 @@
+.user {
+    &__container {
+        display: flex;
+        flex-direction: column;
+        //padding: 50px 0;
+        align-items: center;
+        justify-content: center;
+        margin: 30px auto;
+        gap: 20px;
+        .user__avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border-radius: 150px;
+            background-color: #cec9c9;
+        }
+        .user__info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            .user__name {
+                display: flex;
+            }
+            .user__about {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    }
+    .collection {
+        display: flex;
+        flex-direction: column;
+        //padding: 50px 0;
+        align-items: center;
+        justify-content: center;
+        margin: 40px auto;
+        .thumbnails {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            .thumbnail {
+                display: flex;
+                width: 200px;
+                height: 200px;
+                background-color: grey;
+            }
+        }
+    }
+}

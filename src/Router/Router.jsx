@@ -5,7 +5,7 @@ import Footer from '../Containers/Footer/Footer';
 import Home from '../Pages/Home/Home';
 import Login from '../Pages/Login/Login';
 import Register from '../Pages/Register/Register';
-import Profile from '../Pages/Profile'
+import Profile from '../Pages/User/Profile'
 import ProfileAdmin from '../Pages/ProfileAdmin';
 import Band from '../Pages/Band/Band';
 import Add from '../Pages/Add';
