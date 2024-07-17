@@ -1,16 +1,15 @@
-import React, { useEffect, useState }  from 'react';
-import { /*Link,*/ useNavigate } from "react-router-dom";
-/*import {NavLink} from 'react-router-dom';*/
-import Disconnected from '../../assets/img/Icon/Initial/icon-user.webp'
-import Connected from '../../assets/img/Icon/Reverse/icon-user-Reverse.webp'
-import LogoutIcon from '../../assets/img/Icon/Reverse/icon-login.webp'
-import iconSearch from '../../assets/img/Icon/icon-search.png'
-import iconbasket from '../../assets/img/Icon/Initial/icon-caddy.webp'
+import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import Disconnected from '../../assets/img/Icon/Initial/icon-user.webp';
+import Connected from '../../assets/img/Icon/Reverse/icon-user-Reverse.webp';
+import LogoutIcon from '../../assets/img/Icon/Reverse/icon-login.webp';
+import iconSearch from '../../assets/img/Icon/icon-search.png';
+import iconbasket from '../../assets/img/Icon/Initial/icon-caddy.webp';
 import { useAuth } from '../../Services/AuthContext';
 import pb from '../../pocketbase';
-import './NavBar.scss'
+import './NavBar.scss';
 
-function NavBar () {
+function NavBar() {
     const { isAuthenticated, userType, logout } = useAuth();
     const navigate = useNavigate();
     const [searchTerm, setSearchTerm] = useState('');
@@ -21,17 +20,16 @@ function NavBar () {
 
     const handleLogout = () => {
         logout();
-        //navigate('/login');
+        navigate('/');
     };
-    useEffect(() => {
-        if (isAuthenticated) {
-            if (userType === 'admin') {
-                navigate('/profile-admin');
-            } else if (userType === 'user') {
-                navigate('/profile');
-            }
+
+    const handleProfileClick = () => {
+        if (userType === 'admins') {
+            navigate('/profile-admin');
+        } else if (userType === 'users') {
+            navigate('/profile');
         }
-    }, [isAuthenticated, userType, navigate]);
+    };
 
     const handleSearchChange = (e) => {
         setSearchTerm(e.target.value);
@@ -57,19 +55,18 @@ function NavBar () {
 
     return (
         <nav className="nav">
-                <form className="searchContainer" onSubmit={handleSearchSubmit}>
-                    <input 
+            <form className="searchContainer" onSubmit={handleSearchSubmit}>
+                <input 
                     className="searchBar" 
                     type="text" 
                     value={searchTerm}
                     onChange={handleSearchChange}
-                    /*placeholder="Album, titre, groupe, musicien, label..."*/
-                    />
-                    <button type="submit" className="searchButton">
-                        <img src={iconSearch} alt="loupe" className="iconSearch"/>
-                    </button>
-                </form>
-                <div className="buttonsWrap" >
+                />
+                <button type="submit" className="searchButton">
+                    <img src={iconSearch} alt="loupe" className="iconSearch"/>
+                </button>
+            </form>
+            <div className="buttonsWrap">
                 {isAuthenticated ? (
                     <>
                         <img
@@ -78,6 +75,7 @@ function NavBar () {
                             width={25}
                             height={25}
                             className="iconLog"
+                            onClick={handleProfileClick}
                         />
                         <img
                             src={LogoutIcon}
@@ -98,16 +96,16 @@ function NavBar () {
                         className="iconLog"
                     />
                 )}
-                    <img
+                <img
                     src={iconbasket}
                     alt="panier"
                     width={30}
                     height={25}
                     className="iconBasket"
-                    />
-                </div>
+                />
+            </div>
         </nav>
-    )
+    );
 }
 
-export default NavBar
+export default NavBar;

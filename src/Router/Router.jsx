@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Header from '../Containers/Header/Header';
 import Footer from '../Containers/Footer/Footer';
 import Home from '../Pages/Home/Home';
@@ -9,6 +9,7 @@ import Profile from '../Pages/User/Profile'
 import ProfileAdmin from '../Pages/Admin/ProfileAdmin';
 import Band from '../Pages/Band/Band';
 import Add from '../Pages/Add';
+import Error from '../Pages/Error/Error';
 import { useAuth } from '../Services/AuthContext';
 import ProtectedRoute from '../Services/ProtectedRoute';
 
@@ -17,12 +18,12 @@ export default function Router() {
     const { isAuthenticated } = useAuth();
     
     return (
-        <BrowserRouter>
+        <>
             <Header active="home" />
             <Routes>
                 <Route path="/" element={<Home />}/>
-                <Route path="login" element={<Login/>}></Route>
-                <Route path="register" element={<Register/>}></Route>
+                <Route path="login" element={<Login/>}/>
+                <Route path="register" element={<Register/>}/>
                 <Route
                     path="/add"
                     element={  
@@ -51,9 +52,10 @@ export default function Router() {
                         />
                     }
                 />
-                <Route path="/band/:bandId" element={<Band/>}></Route>
+                <Route path="/band/:bandId" element={<Band/>}/>
+                <Route path="*" element={<Error />}/>
             </Routes>
             <Footer />
-        </BrowserRouter>
+        </>
     );
 }

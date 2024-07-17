@@ -16,12 +16,12 @@ export const AuthProvider = ({ children }) => {
       const admin = pb.authStore.model;
       if (admin) {
         setIsAuthenticated(true);
-        setUserType('admin');
+        setUserType('admins');
       } else {
         const user = await pb.collection('users').authRefresh();
         if (user) {
           setIsAuthenticated(true);
-          setUserType('user');
+          setUserType('users');
         } else {
           setIsAuthenticated(false);
           setUserType(null);
@@ -46,14 +46,14 @@ export const AuthProvider = ({ children }) => {
       await pb.admins.authWithPassword(email, password);
       document.cookie = pb.authStore.exportToCookie({ httpOnly: false }); // Stockez le token dans le cookie
       setIsAuthenticated(true);
-      setUserType('admin');
+      setUserType('admins');
     } catch (adminError) {
       setIsAuthenticated(false);
       try {
         await pb.collection('users').authWithPassword(email, password);
         document.cookie = pb.authStore.exportToCookie({ httpOnly: false }); // Stockez le token dans le cookie
         setIsAuthenticated(true);
-        setUserType('user');
+        setUserType('users');
       } catch (userError) {
         setIsAuthenticated(false);
         setUserType(null);

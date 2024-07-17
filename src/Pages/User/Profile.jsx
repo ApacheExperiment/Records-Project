@@ -11,9 +11,7 @@ function Profile() {
         const fetchUser = async () => {
             if (isAuthenticated) {
                 try {
-                    console.log('Fetching user data...');
                     const userData = await pb.collection('users').authRefresh();
-                    console.log('User data fetched:', userData);
                     setUser(userData.record);
                 } catch (error) {
                     console.error('Erreur lors de la récupération de l\'utilisateur:', error);
