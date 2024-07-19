@@ -8,7 +8,8 @@ import Register from '../Pages/Register/Register';
 import Profile from '../Pages/User/Profile'
 import ProfileAdmin from '../Pages/Admin/ProfileAdmin';
 import Band from '../Pages/Band/Band';
-import Add from '../Pages/Add';
+import AddBand from '../Pages/AddBand/AddBand';
+import AddReference from '../Pages/AddReference/AddReference';
 import Error from '../Pages/Error/Error';
 import { useAuth } from '../Services/AuthContext';
 import ProtectedRoute from '../Services/ProtectedRoute';
@@ -22,14 +23,24 @@ export default function Router() {
             <Header active="home" />
             <Routes>
                 <Route path="/" element={<Home />}/>
-                <Route path="login" element={<Login/>}/>
-                <Route path="register" element={<Register/>}/>
+                <Route path="login" element={<Login />}/>
+                <Route path="register" element={<Register />}/>
                 <Route
-                    path="/add"
+                    path="/add-band"
                     element={  
                         // Route protégée, ne peut être accédée que si l'utilisateur est authentifié
                         <ProtectedRoute 
-                            element={<Add />} 
+                            element={<AddBand />} 
+                            isAuthenticated={isAuthenticated} 
+                        />
+                    }
+                />
+                <Route
+                    path="/add-reference"
+                    element={  
+                        // Route protégée, ne peut être accédée que si l'utilisateur est authentifié
+                        <ProtectedRoute 
+                            element={<AddReference />} 
                             isAuthenticated={isAuthenticated} 
                         />
                     }

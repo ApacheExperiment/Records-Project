@@ -10,6 +10,6 @@ function App() {
                 <Router />
             </AuthProvider>
         </BrowserRouter>
-    )
+    );
 }
 export default App;

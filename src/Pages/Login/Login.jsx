@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import './login.scss'
 import arrow from "../../assets/img/Icon/icon-arrow-left.webp";
@@ -9,7 +9,7 @@ export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
-    const { login } = useAuth();
+    const { login, userType, isAuthenticated } = useAuth();
     const navigate = useNavigate();
 
     //Rendue visible du mot de passe pour le champs de saisie
@@ -21,12 +21,26 @@ export default function Login() {
         e.preventDefault();
         try {
             await login(email, password);
-            navigate('/profile');
+            if (userType === 'admins') {
+                navigate('/profile-admin');
+            } else if (userType === 'users') {
+                navigate('/profile');
+            }
         } catch (error) {
             console.error('La connexion a échoué:', error);
             setErrorMessage("Adresse e-mail ou mot de passe incorrect");
         }
     };
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            if (userType === 'admins') {
+                navigate('/profile-admin');
+            } else if (userType === 'users') {
+                navigate('/profile');
+            }
+        }
+    }, [isAuthenticated, userType, navigate]);
 
     return (
         <div className="borderLog">

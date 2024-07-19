@@ -1,8 +1,22 @@
 import React from 'react';
+import { useNavigate } from "react-router-dom";
 import IconItem from './IconItem';
 import imagePaths from './imagePaths';
 
 const IconGroup = ({ handleItemClick, activeItem, activeSubItem, setActiveSubItem }) => {
+    const navigate = useNavigate();
+
+    const goToAddBand = () => {
+        navigate('/add-band');
+    };
+    const goToAddReference = () => {
+        navigate('/add-reference');
+    };
+
+     // Vérification des types de fonctions
+     console.log('Type de handleItemClick:', typeof handleItemClick);
+     console.log('Type de setActiveSubItem:', typeof setActiveSubItem);
+     
     return (
         <div className="wrap-menu">
             <button onClick={() => handleItemClick('explorer')} className="button-menu">
@@ -57,7 +71,7 @@ const IconGroup = ({ handleItemClick, activeItem, activeSubItem, setActiveSubIte
                         <button className="button-submenu" onClick={() => setActiveSubItem('buy')}>
                             <IconItem
                                 initialIcon={imagePaths.buy.initial}
-                                activeIcon={imagePaths.buy.reverse}
+                                activeIcon={imagePaths.buy.active}
                                 alt="icon buy"
                                 className="icon icon-buy"
                                 isActive={activeSubItem === 'buy'}
@@ -67,12 +81,49 @@ const IconGroup = ({ handleItemClick, activeItem, activeSubItem, setActiveSubIte
                         <button className="button-submenu" onClick={() => setActiveSubItem('sell')}>
                             <IconItem
                                 initialIcon={imagePaths.sell.initial}
-                                activeIcon={imagePaths.sell.reverse}
+                                activeIcon={imagePaths.sell.active}
                                 alt="icon sell"
                                 className="icon icon-sell"
                                 isActive={activeSubItem === 'sell'}
                             />
                             Vendre
+                        </button>
+                    </div>
+                </div>
+            )}
+            <button onClick={() => handleItemClick('add')} className="button-menu" >
+                <IconItem
+                    initialIcon={imagePaths.add.initial}
+                    activeIcon={imagePaths.add.active}
+                    alt="icon add"
+                    className="icon icon-add"
+                    isActive={activeItem === 'add'}
+                    //onClick={addReference}
+                />
+                Ajouter
+            </button>
+            {activeItem === 'add' && (
+                <div className="submenu">
+                    <div className="wrap-submenu">
+                        <button className="button-submenu" onClick={() => { setActiveSubItem('reference'); goToAddReference(); }}>
+                            <IconItem
+                                initialIcon={imagePaths.reference.initial}
+                                activeIcon={imagePaths.reference.active}
+                                alt="icon buy"
+                                className="icon icon-buy"
+                                isActive={activeSubItem === 'reference'}
+                            />
+                            Référence
+                        </button>
+                        <button className="button-submenu" onClick={() => { setActiveSubItem('band'); goToAddBand(); }}>
+                            <IconItem
+                                initialIcon={imagePaths.band.initial}
+                                activeIcon={imagePaths.band.active}
+                                alt="icon sell"
+                                className="icon icon-sell"
+                                isActive={activeSubItem === 'band'}
+                            />
+                            Band
                         </button>
                     </div>
                 </div>

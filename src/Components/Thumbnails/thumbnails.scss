@@ -6,7 +6,7 @@
     .title-thumbnails {
         color: white;
         background-color: rgba(84, 47, 21, 0.43);
-        padding: 10px 20px;
+        padding: 10px 0px;
         width: 200px;
         border-radius: 10px;
         text-align: center;
@@ -57,6 +57,9 @@
 }
 @media screen and (max-width: 768px) {
     .container-thumbnails {
+        .title-thumbnails {
+            padding: 10px 25px;
+        }
         .thumbnails {
             flex-direction: column;
             gap: 10px;

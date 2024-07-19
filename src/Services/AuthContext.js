@@ -13,31 +13,29 @@ export const AuthProvider = ({ children }) => {
   // Utilisation de useEffect pour vérifier l'authentification lors du montage du composant
   useEffect(() => {
     const checkAuth = async () => {
+      pb.authStore.loadFromCookie();
       const admin = pb.authStore.model;
       if (admin) {
         setIsAuthenticated(true);
         setUserType('admins');
       } else {
-        const user = await pb.collection('users').authRefresh();
-        if (user) {
-          setIsAuthenticated(true);
-          setUserType('users');
-        } else {
+        try {
+          const user = await pb.collection('users').authRefresh();
+          if (user) {
+            setIsAuthenticated(true);
+            setUserType('users');
+          } else {
+            setIsAuthenticated(false);
+            setUserType(null);
+          }
+        } catch {
           setIsAuthenticated(false);
           setUserType(null);
         }
       }
     };
 
-    // Vérifiez si le token est présent dans le local storage
-    const token = pb.authStore.token;
-    if (token) {
-      pb.authStore.loadFromCookie(); // Chargez le token depuis le cookie
-      checkAuth();
-    } else {
-      setIsAuthenticated(false);
-      setUserType(null);
-    }
+    checkAuth();
   }, []);
 
   // Fonction de connexion
@@ -47,8 +45,8 @@ export const AuthProvider = ({ children }) => {
       document.cookie = pb.authStore.exportToCookie({ httpOnly: false }); // Stockez le token dans le cookie
       setIsAuthenticated(true);
       setUserType('admins');
-    } catch (adminError) {
-      setIsAuthenticated(false);
+    } catch /*(adminError)*/ {
+      //setIsAuthenticated(false);
       try {
         await pb.collection('users').authWithPassword(email, password);
         document.cookie = pb.authStore.exportToCookie({ httpOnly: false }); // Stockez le token dans le cookie
