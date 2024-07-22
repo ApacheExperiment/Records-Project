@@ -16,7 +16,7 @@ import ProtectedRoute from '../Services/ProtectedRoute';
 
 
 export default function Router() {
-    const { isAuthenticated } = useAuth();
+    const { isAuthenticated, userType } = useAuth();
     
     return (
         <>
@@ -50,7 +50,7 @@ export default function Router() {
                     element={
                         <ProtectedRoute 
                             element={<Profile/>}
-                            isAuthenticated={isAuthenticated} 
+                            isAuthenticated={isAuthenticated && userType === 'users'} 
                         />
                     }
                 />
@@ -59,7 +59,7 @@ export default function Router() {
                     element={
                         <ProtectedRoute 
                             element={<ProfileAdmin/>}
-                            isAuthenticated={isAuthenticated} 
+                            isAuthenticated={isAuthenticated && userType === 'admins'} 
                         />
                     }
                 />

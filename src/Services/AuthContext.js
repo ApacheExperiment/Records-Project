@@ -13,60 +13,58 @@ export const AuthProvider = ({ children }) => {
   // Utilisation de useEffect pour vérifier l'authentification lors du montage du composant
   useEffect(() => {
     const checkAuth = async () => {
-      pb.authStore.loadFromCookie();
-      const admin = pb.authStore.model;
-      if (admin) {
-        setIsAuthenticated(true);
-        setUserType('admins');
-      } else {
-        try {
-          const user = await pb.collection('users').authRefresh();
-          if (user) {
-            setIsAuthenticated(true);
-            setUserType('users');
-          } else {
+        const token = localStorage.getItem('authToken');
+        if (token) {
+            pb.authStore.loadFromCookie(token); // Charge le jeton depuis localStorage
+            const user = pb.authStore.model;
+            if (user) {
+                setIsAuthenticated(true);
+                setUserType(user.admin ? 'admins' : 'users'); // Ajuste en fonction de la réponse
+            } else {
+                setIsAuthenticated(false);
+                setUserType(null);
+            }
+        } else {
             setIsAuthenticated(false);
             setUserType(null);
-          }
-        } catch {
-          setIsAuthenticated(false);
-          setUserType(null);
         }
-      }
     };
 
     checkAuth();
-  }, []);
+}, []);
 
   // Fonction de connexion
   const login = async (email, password) => {
     try {
-      await pb.admins.authWithPassword(email, password);
-      document.cookie = pb.authStore.exportToCookie({ httpOnly: false }); // Stockez le token dans le cookie
-      setIsAuthenticated(true);
-      setUserType('admins');
-    } catch /*(adminError)*/ {
-      //setIsAuthenticated(false);
-      try {
-        await pb.collection('users').authWithPassword(email, password);
-        document.cookie = pb.authStore.exportToCookie({ httpOnly: false }); // Stockez le token dans le cookie
+        await pb.admins.authWithPassword(email, password);
+        const token = pb.authStore.exportToCookie({ httpOnly: false });
+        localStorage.setItem('authToken', token); // Stocke le jeton dans localStorage
         setIsAuthenticated(true);
-        setUserType('users');
-      } catch (userError) {
-        setIsAuthenticated(false);
-        setUserType(null);
-        throw userError;
-      }
+        setUserType('admins');
+    } catch {
+        try {
+            await pb.collection('users').authWithPassword(email, password);
+            const token = pb.authStore.exportToCookie({ httpOnly: false });
+            localStorage.setItem('authToken', token); // Stocke le jeton dans localStorage
+            setIsAuthenticated(true);
+            setUserType('users');
+        } catch (userError) {
+            setIsAuthenticated(false);
+            setUserType(null);
+            throw userError;
+        }
     }
-  };
+};
+
 
   // Fonction de déconnexion
   const logout = () => {
     pb.authStore.clear();
-    document.cookie = pb.authStore.exportToCookie({ httpOnly: false }); // Supprimez le token du cookie
+    localStorage.removeItem('authToken'); // Supprime le jeton de localStorage
     setIsAuthenticated(false);
     setUserType(null);
-  };
+};
+
 
   return (
     // Fournit le contexte d'authentification aux composants enfants
