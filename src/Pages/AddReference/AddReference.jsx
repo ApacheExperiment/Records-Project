@@ -14,12 +14,16 @@ const AddReference = () => {
     label: '',
     versions: '',
     bandId: '',
+    tracklist: [], // Ajout de l'état tracklist
   });
-
+  const [track, setTrack] = useState({
+    trackNumber: '',
+    trackName: '',
+    trackDuration: ''
+  });
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    // Récupérer la liste des groupes/artistes depuis PocketBase
     const fetchGroups = async () => {
       try {
         const groupsList = await pb.collection('Band').getFullList();
@@ -41,6 +45,27 @@ const AddReference = () => {
     setReferenceData({ ...referenceData, cover: e.target.files[0] });
   };
 
+  const handleTrackChange = (e) => {
+    const { name, value } = e.target;
+    setTrack({ ...track, [name]: value });
+  };
+
+  const handleAddTrack = () => {
+    setReferenceData({
+      ...referenceData,
+      tracklist: [...referenceData.tracklist, track]
+    });
+    setTrack({ trackNumber: '', trackName: '', trackDuration: '' });
+  };
+
+  const handleRemoveTrack = (index) => {
+    const updatedTracklist = referenceData.tracklist.filter((_, i) => i !== index);
+    setReferenceData({
+      ...referenceData,
+      tracklist: updatedTracklist
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -53,11 +78,12 @@ const AddReference = () => {
       const referenceFormData = new FormData();
       referenceFormData.append('Cover', referenceData.cover);
       referenceFormData.append('NameAlbum', referenceData.name);
-      referenceFormData.append('bandId', referenceData.bandId); // Utilise l'ID du groupe
+      referenceFormData.append('bandId', referenceData.bandId);
       referenceFormData.append('Year', referenceData.year);
       referenceFormData.append('Genre', referenceData.genre);
       referenceFormData.append('Label', referenceData.label);
       referenceFormData.append('Versions', referenceData.versions);
+      referenceFormData.append('Tracklist', JSON.stringify(referenceData.tracklist)); // Ajout de la tracklist
 
       await pb.collection('Albums').create(referenceFormData);
 
@@ -141,6 +167,57 @@ const AddReference = () => {
             <input type="text" id="versions" name="versions" className="smallInput" value={referenceData.versions} onChange={handleInputChange} required />
           </div>
         </div>
+
+        <h3 className="add-titles">Tracklist</h3>
+        <div className="form-section">
+          <div className="form-group">
+            <label htmlFor="trackNumber" className="addLabel">Numéro de piste</label>
+            <input
+              type="text"
+              id="trackNumber"
+              name="trackNumber"
+              className="smallInput"
+              value={track.trackNumber}
+              onChange={handleTrackChange}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="trackName" className="addLabel">Nom de la piste</label>
+            <input
+              type="text"
+              id="trackName"
+              name="trackName"
+              className="smallInput"
+              value={track.trackName}
+              onChange={handleTrackChange}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="trackDuration" className="addLabel">Durée de la piste</label>
+            <input
+              type="text"
+              id="trackDuration"
+              name="trackDuration"
+              className="smallInput"
+              value={track.trackDuration}
+              onChange={handleTrackChange}
+            />
+          </div>
+          <button type="button" className="button" onClick={handleAddTrack}>
+            Ajouter une piste
+          </button>
+        </div>
+
+        <ul>
+          {referenceData.tracklist.map((track, index) => (
+            <li key={index}>
+              {track.trackNumber}. {track.trackName} - {track.trackDuration}
+              <button type="button" onClick={() => handleRemoveTrack(index)} className="remove-track-button">
+                Supprimer
+              </button>
+            </li>
+          ))}
+        </ul>
 
         <button type="submit" className="button">Envoyer</button>
         {message && <p className="messageSubmit">{message}</p>}

@@ -1,5 +1,8 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { useAuth } from '../Services/AuthContext';
+import ProtectedRoute from '../Services/ProtectedRoute';
+
 import Header from '../Containers/Header/Header';
 import Footer from '../Containers/Footer/Footer';
 import Home from '../Pages/Home/Home';
@@ -8,11 +11,12 @@ import Register from '../Pages/Register/Register';
 import Profile from '../Pages/User/Profile'
 import ProfileAdmin from '../Pages/Admin/ProfileAdmin';
 import Band from '../Pages/Band/Band';
+import Record from '../Pages/Record/Record';
 import AddBand from '../Pages/AddBand/AddBand';
 import AddReference from '../Pages/AddReference/AddReference';
 import Error from '../Pages/Error/Error';
-import { useAuth } from '../Services/AuthContext';
-import ProtectedRoute from '../Services/ProtectedRoute';
+
+
 
 
 export default function Router() {
@@ -64,6 +68,7 @@ export default function Router() {
                     }
                 />
                 <Route path="/band/:bandId" element={<Band/>}/>
+                <Route path="/record/:albumId" element={<Record/>}/>
                 <Route path="*" element={<Error />}/>
             </Routes>
             <Footer />

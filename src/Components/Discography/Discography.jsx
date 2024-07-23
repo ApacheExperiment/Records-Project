@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from 'react-router-dom';
 import pb from '../../pocketbase';
 import './discography.scss';
 
@@ -53,19 +54,21 @@ function Discography({ bandId }) {
                 {albums.map((album) => (
                     <div key={album.id} className="records">
                         <div className="cover">
-                            {album.Cover ? (
-                                <img
-                                    src={pb.getFileUrl(album, album.Cover)}
-                                    alt={album.NameAlbum}
-                                    width={100}
-                                    height={100}
-                                />
-                            ) : (
-                                <div className="placeholder-cover">No cover available</div>
-                            )}
+                            <Link to={`/record/${album.id}`}>
+                                {album.Cover ? (
+                                    <img
+                                        src={pb.getFileUrl(album, album.Cover)}
+                                        alt={album.NameAlbum}
+                                        width={100}
+                                        height={100}
+                                    />
+                                ) : (
+                                    <div className="placeholder-cover">No cover available</div>
+                                )}
+                            </Link>
                         </div>
                         <div className="name-years-space">
-                            <p className="records__name">{album.NameAlbum}</p>
+                        <Link to={`/record/${album.id}`}  className="records__name">{album.NameAlbum}</Link>
                             <p>{album.Label}</p>
                             <p className="years-realese">{album.Year}</p>
                         </div>

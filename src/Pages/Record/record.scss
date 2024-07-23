@@ -1,0 +1,32 @@
+.record-container {
+    display: flex;
+    flex-direction: column;
+    margin: 50px 300px 0 300px;
+    .row-cover-description {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        .col-description {
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            margin-left: 15px;
+            .row-band-record {
+                display: flex;
+                align-items: center;
+                .band-record {
+                    margin: 2px;
+                }
+                .bandName {
+                    margin-right: 10px;
+                }
+                .recordName {
+                    margin-left: 10px;
+                }
+            }
+            .détails-record {
+                margin: 2px;
+            }
+        }
+    }
+}
