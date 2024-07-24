@@ -12,6 +12,9 @@ const IconGroup = ({ handleItemClick, activeItem, activeSubItem, setActiveSubIte
     const goToAddReference = () => {
         navigate('/add-reference');
     };
+    const goToAddLabel = () => {
+        navigate('/add-label');
+    };
 
      // Vérification des types de fonctions
      console.log('Type de handleItemClick:', typeof handleItemClick);
@@ -109,8 +112,8 @@ const IconGroup = ({ handleItemClick, activeItem, activeSubItem, setActiveSubIte
                             <IconItem
                                 initialIcon={imagePaths.reference.initial}
                                 activeIcon={imagePaths.reference.active}
-                                alt="icon buy"
-                                className="icon icon-buy"
+                                alt="icon reference"
+                                className="icon icon-reference"
                                 isActive={activeSubItem === 'reference'}
                             />
                             Référence
@@ -119,11 +122,21 @@ const IconGroup = ({ handleItemClick, activeItem, activeSubItem, setActiveSubIte
                             <IconItem
                                 initialIcon={imagePaths.band.initial}
                                 activeIcon={imagePaths.band.active}
-                                alt="icon sell"
-                                className="icon icon-sell"
+                                alt="icon band"
+                                className="icon icon-band"
                                 isActive={activeSubItem === 'band'}
                             />
                             Band
+                        </button>
+                        <button className="button-submenu" onClick={() => { setActiveSubItem('label'); goToAddLabel(); }}>
+                            <IconItem
+                                initialIcon={imagePaths.label.initial}
+                                activeIcon={imagePaths.label.active}
+                                alt="icon sell"
+                                className="icon icon-label"
+                                isActive={activeSubItem === 'label'}
+                            />
+                            Label
                         </button>
                     </div>
                 </div>

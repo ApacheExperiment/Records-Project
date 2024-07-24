@@ -4,12 +4,12 @@ const imagePaths = {
         active: require("../../../assets/img/Icon/Reverse/icon-explore-Active.webp")
     },
     market: {
-        initial: require("../../../assets/img/Icon/Initial/vinyl-sleeve.png"),
+        initial: require("../../../assets/img/Icon/Initial/vinyl-sleeve.webp"),
         active: require("../../../assets/img/Icon/Reverse/vinyl-sleeve-Active.webp")
     },
     add : {
-        initial: require("../../../assets/img/Icon/Initial/icon-add.png"),
-        active: require("../../../assets/img/Icon/Reverse/icon-add-Active.png")
+        initial: require("../../../assets/img/Icon/Initial/icon-add.webp"),
+        active: require("../../../assets/img/Icon/Reverse/icon-add-Active.webp")
     },
     format: {
         initial: require("../../../assets/img/Icon/Initial/icon-tape.webp"),
@@ -28,12 +28,16 @@ const imagePaths = {
         active: require("../../../assets/img/Icon/Reverse/icon-sell-Active.webp")
     },
     reference: {
-        initial: require("../../../assets/img/Icon/Initial/icon-cd.png"),
-        active: require("../../../assets/img/Icon/Reverse/icon-cd-Active.png")
+        initial: require("../../../assets/img/Icon/Initial/icon-cd.webp"),
+        active: require("../../../assets/img/Icon/Reverse/icon-cd-Active.webp")
     },
     band: {
-        initial: require("../../../assets/img/Icon/Initial/icon-drum.png"),
-        active: require("../../../assets/img/Icon/Reverse/icon-drum-Active.png")
+        initial: require("../../../assets/img/Icon/Initial/icon-drum.webp"),
+        active: require("../../../assets/img/Icon/Reverse/icon-drum-Active.webp")
+    },
+    label: {
+        initial: require("../../../assets/img/Icon/Initial/icon-label.webp"),
+        active: require("../../../assets/img/Icon/Reverse/icon-label-Active.webp")
     }
 };
 

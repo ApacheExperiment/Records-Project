@@ -6,15 +6,16 @@ import pb from '../../pocketbase';
 
 const AddBand = () => {
   const [bandData, setBandData] = useState({
-    name: '',
-    status: '',
-    formedIn: '',
-    yearOfActivity: '',
-    locationBand: '',
-    currentLabel: '',
-    genre: '',
-    biography: '',
-    logoBand: null,
+    NameBand: '',
+    LogoBand: null,
+    StatusBand: '',
+    FormedIn: '',
+    YearOfActivity: '',
+    LocationBand: '',
+    CurrentLabel: '',
+    Genre: '',
+    Links: '',
+    Biography: '',
   });
 
   const [message, setMessage] = useState('');
@@ -25,29 +26,29 @@ const AddBand = () => {
   };
 
   const handleBandFileChange = (e) => {
-    setBandData({ ...bandData, logoBand: e.target.files[0] });
+    setBandData({ ...bandData, LogoBand: e.target.files[0] });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!bandData.logoBand) {
+    if (!bandData.LogoBand) {
       setMessage('Veuillez télécharger le logo requis.');
       return;
     }
 
     try {
       const bandFormData = new FormData();
-      bandFormData.append('NameBand', bandData.name);
-      bandFormData.append('LogoBand', bandData.logoBand);
-      bandFormData.append('StatusBand', bandData.status);
-      bandFormData.append('FormedIn', bandData.formedIn);
-      bandFormData.append('YearOfActivity', bandData.yearOfActivity);
-      bandFormData.append('LocationBand', bandData.locationBand);
-      bandFormData.append('CurrentLabel', bandData.currentLabel);
-      bandFormData.append('Genre', bandData.genre);
-      bandFormData.append('Links', bandData.links);
-      bandFormData.append('Biography', bandData.biography);
+      bandFormData.append('NameBand', bandData.NameBand);
+      bandFormData.append('LogoBand', bandData.LogoBand);
+      bandFormData.append('StatusBand', bandData.StatusBand);
+      bandFormData.append('FormedIn', bandData.FormedIn);
+      bandFormData.append('YearOfActivity', bandData.YearOfActivity);
+      bandFormData.append('LocationBand', bandData.LocationBand);
+      bandFormData.append('CurrentLabel', bandData.CurrentLabel);
+      bandFormData.append('Genre', bandData.Genre);
+      bandFormData.append('Links', bandData.Links);
+      bandFormData.append('Biography', bandData.Biography);
 
       await pb.collection('Band').create(bandFormData);
 
@@ -96,53 +97,53 @@ const AddBand = () => {
 
         <div className="form-section">
           <div className="form-group">
-            <label htmlFor="bandLogo" className="addLabel">Logo</label>
-            {renderFileInputButton('logoBand', handleBandFileChange, bandData.logoBand)}
+            <label htmlFor="LogoBand" className="addLabel">Logo</label>
+            {renderFileInputButton('LogoBand', handleBandFileChange, bandData.LogoBand)}
           </div>
           <div className="form-group">
-            <label htmlFor="bandName" className="addLabel">Nom</label>
-            <input type="text" id="bandName" name="name" className="smallInput" value={bandData.name} onChange={handleBandInputChange} required />
+            <label htmlFor="NameBand" className="addLabel">Nom</label>
+            <input type="text" id="NameBand" name="NameBand" className="smallInput" value={bandData.NameBand} onChange={handleBandInputChange} required />
           </div>
           <div className="form-group">
-            <label htmlFor="bandStatus" className="addLabel">Status</label>
-            <input type="text" id="bandStatus" name="status" className="smallInput" value={bandData.status} onChange={handleBandInputChange} required />
+            <label htmlFor="StatusBand" className="addLabel">Status</label>
+            <input type="text" id="StatusBand" name="StatusBand" className="smallInput" value={bandData.StatusBand} onChange={handleBandInputChange} required />
           </div>
           <div className="form-group">
-            <label htmlFor="bandFormedIn" className="addLabel">Formé en</label>
-            <input type="text" id="bandFormedIn" name="formedIn" className="smallInput" value={bandData.formedIn} onChange={handleBandInputChange} required />
+            <label htmlFor="FormedIn" className="addLabel">Formé en</label>
+            <input type="text" id="FormedIn" name="FormedIn" className="smallInput" value={bandData.FormedIn} onChange={handleBandInputChange} required />
           </div>
           <div className="form-group">
-            <label htmlFor="bandYearOfActivity" className="addLabel">Années d'activité</label>
-            <input type="text" id="bandYearOfActivity" name="yearOfActivity" className="smallInput" value={bandData.yearOfActivity} onChange={handleBandInputChange} required />
-          </div>
-        </div>
-
-        <div className="form-section">
-          <div className="form-group">
-            <label htmlFor="bandLocationBand" className="addLabel">Localisation</label>
-            <input type="text" id="bandLocationBand" name="locationBand" className="smallInput" value={bandData.locationBand} onChange={handleBandInputChange} required />
+            <label htmlFor="YearOfActivity" className="addLabel">Années d'activité</label>
+            <input type="text" id="YearOfActivity" name="YearOfActivity" className="smallInput" value={bandData.YearOfActivity} onChange={handleBandInputChange} required />
           </div>
         </div>
 
         <div className="form-section">
           <div className="form-group">
-            <label htmlFor="bandCurrentLabel" className="addLabel">Label Actuel</label>
-            <input type="text" id="bandCurrentLabel" name="currentLabel" className="smallInput" value={bandData.currentLabel} onChange={handleBandInputChange} required />
+            <label htmlFor="LocationBand" className="addLabel">Localisation</label>
+            <input type="text" id="LocationBand" name="LocationBand" className="smallInput" value={bandData.LocationBand} onChange={handleBandInputChange} required />
+          </div>
+        </div>
+
+        <div className="form-section">
+          <div className="form-group">
+            <label htmlFor="CurrentLabel" className="addLabel">Label Actuel</label>
+            <input type="text" id="CurrentLabel" name="CurrentLabel" className="smallInput" value={bandData.CurrentLabel} onChange={handleBandInputChange} required />
           </div>
           <div className="form-group">
             <label htmlFor="bandGenre" className="addLabel">Genre</label>
-            <input type="text" id="bandGenre" name="genre" className="smallInput" value={bandData.genre} onChange={handleBandInputChange} required />
+            <input type="text" id="Genre" name="Genre" className="smallInput" value={bandData.Genre} onChange={handleBandInputChange} required />
           </div>
           <div className="form-group">
-          <label htmlFor="bandLinks" className="addLabel">Liens</label>
-          <input type="text" id="bandLink" name="link" className="smallInput" value={bandData.link} onChange={handleBandInputChange} required />
+          <label htmlFor="Links" className="addLabel">Liens</label>
+          <input type="text" id="Links" name="Links" className="smallInput" value={bandData.Links} onChange={handleBandInputChange} required />
           </div>
         </div>
 
         <div className="form-section">
           <div className="form-group">
-            <label htmlFor="bandBiography" className="addLabel">Biographie</label>
-            <textarea id="bandBiography" name="biography" className="addTextarea" value={bandData.biography} onChange={handleBandInputChange} required></textarea>
+            <label htmlFor="Biography" className="addLabel">Biographie</label>
+            <textarea id="Biography" name="Biography" className="addTextarea" value={bandData.Biography} onChange={handleBandInputChange} required></textarea>
           </div>
         </div>
 

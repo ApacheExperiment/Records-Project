@@ -89,7 +89,8 @@
             cursor:pointer;
             
             .icon-format, 
-            .icon-buy {
+            .icon-buy,
+            .icon-reference {
                 width: 29px;
                 padding-right:10px;
             }
@@ -99,10 +100,15 @@
                 padding-right: 15px;
                 padding-left: 8px;
             }
-            .icon-sell {
+            .icon-sell,
+            .icon-band {
                 width: 27px;
-                padding-right:10px;
-                
+                padding-right:10px; 
+            }
+            .icon-label {
+                width: 20px;
+                padding-right:12px;
+                padding-left: 5px;
             }
         }
     }

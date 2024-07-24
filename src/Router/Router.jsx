@@ -14,13 +14,14 @@ import Band from '../Pages/Band/Band';
 import Record from '../Pages/Record/Record';
 import AddBand from '../Pages/AddBand/AddBand';
 import AddReference from '../Pages/AddReference/AddReference';
+import AddLabel from '../Pages/AddLabel/AddLabel';
 import Error from '../Pages/Error/Error';
 
 
 
 
 export default function Router() {
-    const { isAuthenticated, userType } = useAuth();
+    const { isAuthenticated, /*userType*/ } = useAuth();
     
     return (
         <>
@@ -49,12 +50,22 @@ export default function Router() {
                         />
                     }
                 />
+                <Route
+                    path="/add-label"
+                    element={  
+                        // Route protégée, ne peut être accédée que si l'utilisateur est authentifié
+                        <ProtectedRoute 
+                            element={<AddLabel />} 
+                            isAuthenticated={isAuthenticated} 
+                        />
+                    }
+                />
                 <Route 
                     path="/profile" 
                     element={
                         <ProtectedRoute 
                             element={<Profile/>}
-                            isAuthenticated={isAuthenticated && userType === 'users'} 
+                            isAuthenticated={isAuthenticated /*&& userType === 'users'*/} 
                         />
                     }
                 />
@@ -63,7 +74,7 @@ export default function Router() {
                     element={
                         <ProtectedRoute 
                             element={<ProfileAdmin/>}
-                            isAuthenticated={isAuthenticated && userType === 'admins'} 
+                            isAuthenticated={isAuthenticated /*&& userType === 'admins'*/} 
                         />
                     }
                 />

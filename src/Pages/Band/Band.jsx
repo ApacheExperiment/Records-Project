@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import './band.scss';
-//import band from '../assets/img/Groupe/Blut_Aus_Nord.gif'
 import pb from '../../pocketbase';
 import ArrowRight from '../../assets/img/Icon/arrow-right.png';
 import Discography from '../../Components/Discography/Discography';
