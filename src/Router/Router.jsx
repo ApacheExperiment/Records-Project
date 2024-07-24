@@ -10,8 +10,9 @@ import Login from '../Pages/Login/Login';
 import Register from '../Pages/Register/Register';
 import Profile from '../Pages/User/Profile'
 import ProfileAdmin from '../Pages/Admin/ProfileAdmin';
-import Band from '../Pages/Band/Band';
+import Band from '../Pages/Label&Band/Band';
 import Record from '../Pages/Record/Record';
+import Label from '../Pages/Label&Band/Label';
 import AddBand from '../Pages/AddBand/AddBand';
 import AddReference from '../Pages/AddReference/AddReference';
 import AddLabel from '../Pages/AddLabel/AddLabel';
@@ -80,6 +81,7 @@ export default function Router() {
                 />
                 <Route path="/band/:bandId" element={<Band/>}/>
                 <Route path="/record/:albumId" element={<Record/>}/>
+                <Route path="/label/:labelId" element={<Label/>}/>
                 <Route path="*" element={<Error />}/>
             </Routes>
             <Footer />

@@ -1,9 +1,11 @@
-.artist {
+.band-container,
+.label-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 0 300px 0 300px;
-    .band {
+    .band,
+    .label {
         display: flex;
         flex-direction: row-reverse;
         margin-bottom: 15px;
@@ -12,28 +14,32 @@
             justify-content: flex-end;
             margin: 50px 0 0 0;
             height: 250px;
-            .band__picture {
+            .band__picture,
+            .label__picture {
                 border-radius: 150px;
-                background-color: #cec9c9;
+                //background-color: #cec9c9;
             }
         }
         &__text {
             display: flex;
             flex-direction: column;
             margin: 50px 0 0 0;
-            .band__name {
+            .band__name,
+            .label__name {
                 font-size: 30px;
                 font-weight: 600;
                 margin: 0;
             }
-            .band__description {
+            .band__description,
+            .label__description {
                 display: flex;
                 align-items: center;
                 .details {
                     padding-left: 20px;
                 }
             }
-            .band__biographie {
+            .band__biographie,
+            .label__biographie {
                 display: flex;
                 .textAndMore {
                     display: flex;
@@ -54,8 +60,10 @@
     }
 }
 @media screen and (max-width: 1110px) {
-    .artist {
-        .band {
+    .band-container,
+    .label-container {
+        .band,
+        .label {
             display: flex;
             flex-direction: column;
                 &__profile {

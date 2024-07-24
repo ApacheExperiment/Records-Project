@@ -30,36 +30,47 @@ function Record() {
     }
 
     return (
-        <div className="record-container">
-            <div className="row-cover-description">
-                <img src={pb.getFileUrl(album, album.Cover)} alt={album.NameAlbum} 
-                    width={150}
-                    height={150} 
-                />
-                <div className="col-description">
-                    <div className="row-band-record">
-                        {band && (
-                            <h2 className="band-record bandName">
-                                <Link to={`/band/${band.id}`}>{band.NameBand}</Link>
-                            </h2>
-                        )} 
-                        – 
-                        <h2 className="band-record recordName">{album.NameAlbum}</h2>
+        <div className="album-container">
+            <div className="record-container">
+                <div className="row-cover-description">
+                    <img src={pb.getFileUrl(album, album.Cover)} alt={album.NameAlbum} 
+                        width={150}
+                        height={150} 
+                    />
+                    <div className="col-description">
+                        <div className="row-band-record">
+                            {band && (
+                                <h2 className="band-record bandName">
+                                    <Link to={`/band/${band.id}`}>{band.NameBand}</Link>
+                                </h2>
+                            )} 
+                            <b>–</b>
+                            <h2 className="band-record recordName">{album.NameAlbum}</h2>
+                        </div>
+                        <p className="détails-record">Genre: {album.Genre}</p>
+                        <p className="détails-record">Label: {album.Label}</p>
+                        <p className="détails-record">Year: {album.Year}</p>
                     </div>
-                    <p className="détails-record">Genre: {album.Genre}</p>
-                    <p className="détails-record">Label: {album.Label}</p>
-                    <p className="détails-record">Year: {album.Year}</p>
-                    <p className="détails-record">Versions: {album.Versions}</p>
                 </div>
+                <h3>Tracklist</h3>
+                <ul>
+                    {album.Tracklist && album.Tracklist.map((track, index) => (
+                        <li key={index}>
+                            {track.trackNumber}. {track.trackName} - {track.trackDuration}
+                        </li>
+                    ))}
+                </ul>
+                <div>
+                    <h3>Crédits</h3>
+                </div>
+                <p className="détails-record">Versions: {album.Versions}</p>
             </div>
-            <h3>Tracklist</h3>
-            <ul>
-                {album.Tracklist && album.Tracklist.map((track, index) => (
-                    <li key={index}>
-                        {track.trackNumber}. {track.trackName} - {track.trackDuration}
-                    </li>
-                ))}
-            </ul>
+                <div className="annexes-container">
+                    <div className="col-links-annexes">
+                        <div className="rectangle1"></div>
+                        <div className="rectangle2"></div>
+                    </div>
+                </div>
         </div>
     );
 }

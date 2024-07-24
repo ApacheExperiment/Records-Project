@@ -1,31 +1,56 @@
-.record-container {
+.album-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
     margin: 50px 300px 0 300px;
-    .row-cover-description {
+    .record-container {
         display: flex;
-        flex-direction: row;
-        align-items: center;
-        .col-description {
+        flex-direction: column;
+        .row-cover-description {
             display: flex;
-            flex-direction: column;
-            margin: 0;
-            margin-left: 15px;
-            .row-band-record {
+            flex-direction: row;
+            align-items: center;
+            .col-description {
                 display: flex;
-                align-items: center;
-                .band-record {
+                flex-direction: column;
+                margin: 0;
+                margin-left: 20px;
+                .row-band-record {
+                    display: flex;
+                    align-items: center;
+                    margin-right: 50px;
+                    .band-record {
+                        margin: 2px;
+                    }
+                    .bandName {
+                        margin-right: 10px;
+                    }
+                    .recordName {
+                        margin-left: 10px;
+                    }
+                }
+                .détails-record {
                     margin: 2px;
                 }
-                .bandName {
-                    margin-right: 10px;
-                }
-                .recordName {
-                    margin-left: 10px;
-                }
             }
-            .détails-record {
-                margin: 2px;
+        }
+
+    }
+    .annexes-container {
+        display: flex;
+        .col-links-annexes {
+            display: flex;
+            flex-direction: column;
+            .rectangle1 {
+                width: 250px;
+                height: 350px;
+                background-color: grey;
+
+            }
+            .rectangle2 {
+                width: 250px;
+                height: 350px;
+                background-color: grey;
             }
         }
     }

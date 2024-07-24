@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import './band.scss';
+import './label&band.scss';
 import pb from '../../pocketbase';
 import ArrowRight from '../../assets/img/Icon/arrow-right.png';
 import Discography from '../../Components/Discography/Discography';
@@ -9,12 +9,16 @@ import Discography from '../../Components/Discography/Discography';
 export default function Band() {
     const { bandId } = useParams();
     const [bandData, setBandData] = useState(null);
+    const [labelData, setLabelData] = useState(null);
 
     useEffect(() => {
         const fetchBandData = async () => {
             try {
-                const response = await pb.collection('Band').getOne(bandId);
+                const response = await pb.collection('Band').getOne(bandId, { expand: 'labelId' });
                 setBandData(response);
+                if (response.expand && response.expand.labelId) {
+                    setLabelData(response.expand.labelId);
+                }
             } catch (error) {
                 console.error("Error fetching band data:", error);
             }
@@ -29,7 +33,7 @@ export default function Band() {
     const logoUrl = bandData.LogoBand ? pb.getFileUrl(bandData, bandData.LogoBand) : null;
 
     return (
-        <div className="artist">
+        <div className="band-container">
             <div className="band">
                 <div className="band__profile">
                     {logoUrl ? (
@@ -63,8 +67,14 @@ export default function Band() {
                         <p className="details">{bandData.LocationBand}</p>
                     </div>
                     <div className="band__description">
-                        <h3>Label actuel:</h3>
-                        <p className="details">{bandData.CurrentLabel}</p>
+                    <h3>Label actuel:</h3>
+                        {labelData ? (
+                            <Link to={`/label/${labelData.id}`} className="details">
+                                {labelData.NameLabel}
+                            </Link>
+                        ) : (
+                            <p className="details">Label non disponible</p>
+                        )}
                     </div>
                     <div className="band__description">
                         <h3>Genre:</h3>
