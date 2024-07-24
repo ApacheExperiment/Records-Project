@@ -6,12 +6,13 @@ import pb from '../../pocketbase';
 
 const AddReference = () => {
   const [groups, setGroups] = useState([]);
+  const [labels, setLabels] = useState([]);
   const [referenceData, setReferenceData] = useState({
     cover: null,
     name: '',
     year: '',
     genre: '',
-    label: '',
+    labelId: '',
     versions: '',
     bandId: '',
     tracklist: [], // Ajout de l'état tracklist
@@ -28,6 +29,9 @@ const AddReference = () => {
       try {
         const groupsList = await pb.collection('Band').getFullList();
         setGroups(groupsList);
+
+        const labelsList = await pb.collection('Label').getFullList();
+        setLabels(labelsList);
       } catch (error) {
         console.error('Error fetching groups:', error);
       }
@@ -81,7 +85,7 @@ const AddReference = () => {
       referenceFormData.append('bandId', referenceData.bandId);
       referenceFormData.append('Year', referenceData.year);
       referenceFormData.append('Genre', referenceData.genre);
-      referenceFormData.append('Label', referenceData.label);
+      referenceFormData.append('labelId', referenceData.labelId);
       referenceFormData.append('Versions', referenceData.versions);
       referenceFormData.append('Tracklist', JSON.stringify(referenceData.tracklist)); // Ajout de la tracklist
 
@@ -159,8 +163,15 @@ const AddReference = () => {
             <input type="text" id="genre" name="genre" className="smallInput" value={referenceData.genre} onChange={handleInputChange} required />
           </div>
           <div className="form-group">
-            <label htmlFor="label" className="addLabel">Label</label>
-            <input type="text" id="label" name="label" className="smallInput" value={referenceData.label} onChange={handleInputChange} required />
+            <label htmlFor="labelId" className="addLabel">Label</label>
+            <select id="labelId" name="labelId" className="smallInput" value={referenceData.labelId} onChange={handleInputChange} required>
+              <option value="">Sélectionner un label</option>
+              {labels.map((label) => (
+                <option key={label.id} value={label.id}>
+                  {label.NameLabel}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="form-group">
             <label htmlFor="versions" className="addLabel">Versions</label>

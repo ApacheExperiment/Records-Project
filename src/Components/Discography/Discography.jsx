@@ -10,7 +10,8 @@ function Discography({ bandId }) {
         const fetchAlbums = async () => {
             try {
                 const response = await pb.collection('Albums').getFullList({
-                    filter: `bandId='${bandId}'` // Filtre par l'ID du groupe
+                    filter: `bandId='${bandId}'`, // Filtre par l'ID du groupe
+                    expand: 'labelId'
                 });
                 setAlbums(response);
             } catch (error) {
@@ -69,7 +70,13 @@ function Discography({ bandId }) {
                         </div>
                         <div className="name-years-space">
                         <Link to={`/record/${album.id}`}  className="records__name">{album.NameAlbum}</Link>
-                            <p>{album.Label}</p>
+                            {album.expand.labelId ? (
+                                <Link to={`/label/${album.expand.labelId.id}`} className="details-record">
+                                    {album.expand.labelId.NameLabel}
+                                </Link>
+                            ) : (
+                                <p className="details">Label non disponible</p>
+                            )}
                             <p className="years-realese">{album.Year}</p>
                         </div>
                     </div>

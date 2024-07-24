@@ -7,15 +7,20 @@ function Record() {
     const { albumId } = useParams();
     const [album, setAlbum] = useState(null);
     const [band, setBand] = useState(null);
+    const [label, setLabel] = useState(null);
 
     useEffect(() => {
         const fetchAlbum = async () => {
             try {
-                const response = await pb.collection('Albums').getOne(albumId);
+                const response = await pb.collection('Albums').getOne(albumId, { expand: 'bandId,labelId' });
                 setAlbum(response);
-                if (response.bandId) {
-                    const bandResponse = await pb.collection('Band').getOne(response.bandId);
+                if (response.expand.bandId) {
+                    const bandResponse = await pb.collection('Band').getOne(response.expand.bandId.id);
                     setBand(bandResponse);
+                }
+                if (response.expand.labelId) {
+                    const labelResponse = await pb.collection('Label').getOne(response.expand.labelId.id);
+                    setLabel(labelResponse);
                 }
             } catch (error) {
                 console.error("Error fetching album data:", error);
@@ -48,7 +53,13 @@ function Record() {
                             <h2 className="band-record recordName">{album.NameAlbum}</h2>
                         </div>
                         <p className="détails-record">Genre: {album.Genre}</p>
-                        <p className="détails-record">Label: {album.Label}</p>
+                        {label ? (
+                            <Link to={`/label/${label.id}`} className="details-record">
+                                {label.NameLabel}
+                            </Link>
+                        ) : (
+                            <p className="details">Label non disponible</p>
+                        )}
                         <p className="détails-record">Year: {album.Year}</p>
                     </div>
                 </div>
