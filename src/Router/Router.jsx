@@ -13,9 +13,9 @@ import ProfileAdmin from '../Pages/Admin/ProfileAdmin';
 import Band from '../Pages/Label&Band/Band';
 import Record from '../Pages/Record/Record';
 import Label from '../Pages/Label&Band/Label';
-import AddBand from '../Pages/AddBand/AddBand';
-import AddReference from '../Pages/AddReference/AddReference';
-import AddLabel from '../Pages/AddLabel/AddLabel';
+import AddBand from '../Pages/Add/AddBand';
+import AddReference from '../Pages/Add/AddReference';
+import AddLabel from '../Pages/Add/AddLabel';
 import Error from '../Pages/Error/Error';
 
 

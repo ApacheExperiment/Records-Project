@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './addBand.scss';
+import './add.scss';
 import arrow from '../../assets/img/Icon/icon-arrow-left.webp';
 import { Link } from 'react-router-dom';
 import pb from '../../pocketbase';
@@ -93,7 +93,7 @@ const AddBand = () => {
           <img src={arrow} alt="return home" className="arrow" />
         </Link>
 
-        <h3 className="add-titles">Groupe - Artiste</h3>
+        <h3 className="add-title">Groupe - Artiste</h3>
 
         <div className="form-section">
           <div className="form-group">
@@ -102,37 +102,37 @@ const AddBand = () => {
           </div>
           <div className="form-group">
             <label htmlFor="NameBand" className="addLabel">Nom</label>
-            <input type="text" id="NameBand" name="NameBand" className="smallInput" value={bandData.NameBand} onChange={handleBandInputChange} required />
+            <input type="text" id="NameBand" name="NameBand" className="smallInput" placeholder="Darkthrone" value={bandData.NameBand} onChange={handleBandInputChange} required />
           </div>
           <div className="form-group">
             <label htmlFor="StatusBand" className="addLabel">Status</label>
-            <input type="text" id="StatusBand" name="StatusBand" className="smallInput" value={bandData.StatusBand} onChange={handleBandInputChange} required />
+            <input type="text" id="StatusBand" name="StatusBand" className="smallInput" placeholder="Actif" value={bandData.StatusBand} onChange={handleBandInputChange} required />
           </div>
           <div className="form-group">
             <label htmlFor="FormedIn" className="addLabel">Formé en</label>
-            <input type="text" id="FormedIn" name="FormedIn" className="smallInput" value={bandData.FormedIn} onChange={handleBandInputChange} required />
+            <input type="text" id="FormedIn" name="FormedIn" className="smallInput" placeholder="1987" value={bandData.FormedIn} onChange={handleBandInputChange} required />
           </div>
           <div className="form-group">
             <label htmlFor="YearOfActivity" className="addLabel">Années d'activité</label>
-            <input type="text" id="YearOfActivity" name="YearOfActivity" className="smallInput" value={bandData.YearOfActivity} onChange={handleBandInputChange} required />
+            <input type="text" id="YearOfActivity" name="YearOfActivity" className="smallInput" placeholder="1987 à maintenant" value={bandData.YearOfActivity} onChange={handleBandInputChange} required />
           </div>
         </div>
 
         <div className="form-section">
           <div className="form-group">
             <label htmlFor="LocationBand" className="addLabel">Localisation</label>
-            <input type="text" id="LocationBand" name="LocationBand" className="smallInput" value={bandData.LocationBand} onChange={handleBandInputChange} required />
+            <input type="text" id="LocationBand" name="LocationBand" className="smallInput" placeholder="Norway, Vinterbro, Ås, Akershus / Trysil, Innlandet" value={bandData.LocationBand} onChange={handleBandInputChange} required />
           </div>
         </div>
 
         <div className="form-section">
           <div className="form-group">
             <label htmlFor="CurrentLabel" className="addLabel">Label Actuel</label>
-            <input type="text" id="CurrentLabel" name="CurrentLabel" className="smallInput" value={bandData.CurrentLabel} onChange={handleBandInputChange} required />
+            <input type="text" id="CurrentLabel" name="CurrentLabel" className="smallInput" placeholder="Peaceville Records" value={bandData.CurrentLabel} onChange={handleBandInputChange} required />
           </div>
           <div className="form-group">
             <label htmlFor="bandGenre" className="addLabel">Genre</label>
-            <input type="text" id="Genre" name="Genre" className="smallInput" value={bandData.Genre} onChange={handleBandInputChange} required />
+            <input type="text" id="Genre" name="Genre" className="smallInput" placeholder="Black Metal" value={bandData.Genre} onChange={handleBandInputChange} required />
           </div>
           <div className="form-group">
           <label htmlFor="Links" className="addLabel">Liens</label>

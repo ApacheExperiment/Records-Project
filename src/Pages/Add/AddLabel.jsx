@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../AddBand/addBand.scss';
+import './add.scss';
 import arrow from '../../assets/img/Icon/icon-arrow-left.webp';
 import { Link } from 'react-router-dom';
 import pb from '../../pocketbase';
@@ -91,7 +91,7 @@ const AddLabel = () => {
           <img src={arrow} alt="return home" className="arrow" />
         </Link>
 
-        <h3 className="add-titles">Label</h3>
+        <h3 className="add-title">Label</h3>
 
         <div className="form-section">
           <div className="form-group">
@@ -100,7 +100,7 @@ const AddLabel = () => {
           </div>
           <div className="form-group">
             <label htmlFor="NameLabel" className="addLabel">Nom</label>
-            <input type="text" id="NameLabel" name="NameLabel" className="smallInput" value={labelData.NameBand} onChange={handleBandInputChange} required />
+            <input type="text" id="NameLabel" name="NameLabel" className="smallInput" placeholder="Debemur Morti Productions" value={labelData.NameBand} onChange={handleBandInputChange} required />
           </div>
           <div className="form-group">
             <label htmlFor="StatusLabel" className="addLabel">Status</label>
@@ -108,25 +108,25 @@ const AddLabel = () => {
           </div>
           <div className="form-group">
             <label htmlFor="Creation" className="addLabel">Création</label>
-            <input type="text" id="Creation" name="Creation" className="smallInput" value={labelData.Creation} onChange={handleBandInputChange} required />
+            <input type="text" id="Creation" name="Creation" className="smallInput" placeholder="2003" value={labelData.Creation} onChange={handleBandInputChange} required />
           </div>
           <div className="form-group">
             <label htmlFor="YearOfActivity" className="addLabel">Années d'activité</label>
-            <input type="text" id="YearOfActivity" name="YearOfActivity" className="smallInput" value={labelData.YearOfActivity} onChange={handleBandInputChange} required />
+            <input type="text" id="YearOfActivity" name="YearOfActivity" className="smallInput" placeholder="2003 à maintenant" value={labelData.YearOfActivity} onChange={handleBandInputChange} required />
           </div>
         </div>
 
         <div className="form-section">
           <div className="form-group">
             <label htmlFor="LocationBand" className="addLabel">Localisation</label>
-            <input type="text" id="LocationLabel" name="LocationLabel" className="smallInput" value={labelData.LocationBand} onChange={handleBandInputChange} required />
+            <input type="text" id="LocationLabel" name="LocationLabel" className="smallInput" placeholder="France, Seine et Marne, Faremoutiers" value={labelData.LocationBand} onChange={handleBandInputChange} required />
           </div>
         </div>
 
         <div className="form-section">
           <div className="form-group">
             <label htmlFor="labelGenre" className="addLabel">Genre</label>
-            <input type="text" id="Genre" name="Genre" className="smallInput" value={labelData.Genre} onChange={handleBandInputChange} required />
+            <input type="text" id="Genre" name="Genre" className="smallInput" placeholder="Black Metal" value={labelData.Genre} onChange={handleBandInputChange} required />
           </div>
           <div className="form-group">
           <label htmlFor="Links" className="addLabel">Liens</label>

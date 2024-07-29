@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import './label&band.scss';
 import pb from '../../pocketbase';
 import ArrowRight from '../../assets/img/Icon/arrow-right.png';
-import Discography from '../../Components/Discography/Discography';
+import DiscographyLabel from '../../Components/Discography/DiscographyLabel';
 
 export default function Label() {
     const { labelId } = useParams();
@@ -85,7 +85,7 @@ export default function Label() {
                     </div>
                 </div>
             </div>
-            <Discography bandId={labelId} />
+            <DiscographyLabel labelId={labelId} />
         </div>
     );
 

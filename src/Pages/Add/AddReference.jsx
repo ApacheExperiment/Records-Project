@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import './addReference.scss';
+import './add.scss';
 import arrow from '../../assets/img/Icon/icon-arrow-left.webp';
 import pb from '../../pocketbase';
 
@@ -132,7 +132,7 @@ const AddReference = () => {
           <img src={arrow} alt="return home" className="arrow" />
         </Link>
 
-        <h3 className="add-titles">Référence</h3>
+        <h3 className="add-title">Référence</h3>
 
         <div className="form-section">
           <div className="form-group">
@@ -152,15 +152,15 @@ const AddReference = () => {
           </div>
           <div className="form-group">
             <label htmlFor="name" className="addLabel">Nom</label>
-            <input type="text" id="name" name="name" className="smallInput" value={referenceData.name} onChange={handleInputChange} required />
+            <input type="text" id="name" name="name" className="smallInput" placeholder="Storm of the Light's Bane" value={referenceData.name} onChange={handleInputChange} required />
           </div>
           <div className="form-group">
             <label htmlFor="year" className="addLabel">Année</label>
-            <input type="text" id="year" name="year" className="smallInput" value={referenceData.year} onChange={handleInputChange} required />
+            <input type="text" id="year" name="year" className="smallInput" placeholder="1995" value={referenceData.year} onChange={handleInputChange} required />
           </div>
           <div className="form-group">
             <label htmlFor="genre" className="addLabel">Genre</label>
-            <input type="text" id="genre" name="genre" className="smallInput" value={referenceData.genre} onChange={handleInputChange} required />
+            <input type="text" id="genre" name="genre" className="smallInput" placeholder="Mélodique Black Metal" value={referenceData.genre} onChange={handleInputChange} required />
           </div>
           <div className="form-group">
             <label htmlFor="labelId" className="addLabel">Label</label>
@@ -179,17 +179,18 @@ const AddReference = () => {
           </div>
         </div>
 
-        <h3 className="add-titles">Tracklist</h3>
+        <h3 className="add-title">Tracklist</h3>
         <div className="form-section">
           <div className="form-group">
             <label htmlFor="trackNumber" className="addLabel">Numéro de piste</label>
             <input
-              type="text"
+              type="number"
               id="trackNumber"
               name="trackNumber"
               className="smallInput"
               value={track.trackNumber}
               onChange={handleTrackChange}
+              placeholder="1"
             />
           </div>
           <div className="form-group">
@@ -201,6 +202,7 @@ const AddReference = () => {
               className="smallInput"
               value={track.trackName}
               onChange={handleTrackChange}
+              placeholder="At The Fathomless Depths"
             />
           </div>
           <div className="form-group">
@@ -212,6 +214,7 @@ const AddReference = () => {
               className="smallInput"
               value={track.trackDuration}
               onChange={handleTrackChange}
+              placeholder="1:56"
             />
           </div>
           <button type="button" className="button" onClick={handleAddTrack}>
