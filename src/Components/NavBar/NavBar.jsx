@@ -38,18 +38,31 @@ function NavBar() {
     const handleSearchSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await pb.collection('Band').getFullList({
-                filter: `NameBand="${searchTerm}"`,
+            const bandResponse = await pb.collection('Band').getFullList({
+                filter: `NameBand ~ "${searchTerm}"`,
+            });
+            const labelResponse = await pb.collection('Label').getFullList({
+                filter: `NameLabel ~ "${searchTerm}"`, // Case-insensitive search
             });
 
-            if (response.length > 0) {
-                const band = response[0];
+            const albumResponse = await pb.collection('Albums').getFullList({
+                filter: `NameAlbum ~ "${searchTerm}"`, // Case-insensitive search
+            });
+
+            if (bandResponse.length > 0) {
+                const band = bandResponse[0];
                 navigate(`/band/${band.id}`);
+            } else if (labelResponse.length > 0) {
+                const label = labelResponse[0];
+                navigate(`/label/${label.id}`);
+            } else if (albumResponse.length > 0) {
+                const album = albumResponse[0];
+                navigate(`/record/${album.id}`);
             } else {
-                alert('No band found with this name.');
+                alert('No results found.');
             }
         } catch (error) {
-            console.error('Error searching band:', error);
+            console.error('Error searching:', error);
         }
     };
 
