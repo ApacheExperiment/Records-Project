@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import pb from '../../pocketbase';
 import ArrowRight from '../../assets/img/Icon/arrow-right.png';
 import './thumbnails.scss';
@@ -12,7 +13,13 @@ function LastAdditions() {
                 const response = await pb.collection('Albums').getList(1, 5, {
                     sort: '-created' // Trie par date de création descendante
                 });
-                setLatestAlbums(response.items);
+
+                const albumsWithBandData = await Promise.all(response.items.map(async (album) => {
+                    const bandResponse = await pb.collection('Band').getOne(album.bandId);
+                    return { ...album, bandData: bandResponse };
+                }));
+
+                setLatestAlbums(albumsWithBandData);
             } catch (error) {
                 console.error('Error fetching latest albums:', error);
             }
@@ -36,7 +43,20 @@ function LastAdditions() {
                         ) : (
                             <div className="placeholder-thumbnail">No cover</div>
                         )}
-                        {/*<p className="thumbnail-title">{album.NameAlbum}</p>*/}
+                        <div className="thumbnail-details">
+                            <br/>
+                            {album.bandData && (
+                                    <Link to={`/band/${album.bandData.id}`} className="thumbnail-title">
+                                        {album.bandData.NameBand}
+                                    </Link>
+                                )}<br></br> 
+                                <br/>
+                                <Link to={`/record/${album.id}`} className="thumbnail-title">
+                                    {album.NameAlbum}
+                                </Link>
+                                <p className="thumbnail-text">{album.Year}</p>
+                                <p className="thumbnail-text">{album.Genre}</p>
+                        </div>
                     </div>
                 ))}
             </div>
