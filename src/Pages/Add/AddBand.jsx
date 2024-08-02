@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './add.scss';
 import arrow from '../../assets/img/Icon/icon-arrow-left.webp';
-import { Link } from 'react-router-dom';
 import pb from '../../pocketbase';
 
 const AddBand = () => {
@@ -13,12 +13,27 @@ const AddBand = () => {
     YearOfActivity: '',
     LocationBand: '',
     CurrentLabel: '',
-    Genre: '',
+    genreId: [],
     Links: '',
     Biography: '',
   });
 
+  const [genres, setGenres] = useState([]);
+  const [selectedGenres, setSelectedGenres] = useState([]);
   const [message, setMessage] = useState('');
+
+  useEffect(() => {
+    const fetchGenres = async () => {
+      try {
+        const genresList = await pb.collection('Genre').getFullList();
+        setGenres(genresList);
+      } catch (error) {
+        console.error('Error fetching genres:', error);
+      }
+    };
+
+    fetchGenres();
+  }, []);
 
   const handleBandInputChange = (e) => {
     const { name, value } = e.target;
@@ -27,6 +42,17 @@ const AddBand = () => {
 
   const handleBandFileChange = (e) => {
     setBandData({ ...bandData, LogoBand: e.target.files[0] });
+  };
+
+  const handleGenreSelectChange = (e) => {
+    const selectedGenreId = e.target.value;
+    if (selectedGenreId && !selectedGenres.includes(selectedGenreId)) {
+      setSelectedGenres([...selectedGenres, selectedGenreId]);
+    }
+  };
+
+  const handleGenreRemove = (genreId) => {
+    setSelectedGenres(selectedGenres.filter((id) => id !== genreId));
   };
 
   const handleSubmit = async (e) => {
@@ -46,7 +72,7 @@ const AddBand = () => {
       bandFormData.append('YearOfActivity', bandData.YearOfActivity);
       bandFormData.append('LocationBand', bandData.LocationBand);
       bandFormData.append('CurrentLabel', bandData.CurrentLabel);
-      bandFormData.append('Genre', bandData.Genre);
+      bandFormData.append('genreId', JSON.stringify(selectedGenres));
       bandFormData.append('Links', bandData.Links);
       bandFormData.append('Biography', bandData.Biography);
 
@@ -131,12 +157,30 @@ const AddBand = () => {
             <input type="text" id="CurrentLabel" name="CurrentLabel" className="smallInput" placeholder="Peaceville Records" value={bandData.CurrentLabel} onChange={handleBandInputChange} required />
           </div>
           <div className="form-group">
-            <label htmlFor="bandGenre" className="addLabel">Genre</label>
-            <input type="text" id="Genre" name="Genre" className="smallInput" placeholder="Black Metal" value={bandData.Genre} onChange={handleBandInputChange} required />
+            <label htmlFor="genreId" className="addLabel">Genre</label>
+            <select id="genreId" name="genreId" className="smallInput" onChange={handleGenreSelectChange} required>
+              <option value="">Sélectionner un genre</option>
+              {genres.map((genre) => (
+                <option key={genre.id} value={genre.id}>
+                  {genre.NameGenre}
+                </option>
+              ))}
+            </select>
+            <div className="selected-genres">
+              {selectedGenres.map((genreId) => {
+                const genre = genres.find((g) => g.id === genreId);
+                return (
+                  <div key={genreId} className="selected-genre">
+                    {genre?.NameGenre}
+                    <button type="button" onClick={() => handleGenreRemove(genreId)}>×</button>
+                  </div>
+                );
+              })}
+            </div>
           </div>
           <div className="form-group">
-          <label htmlFor="Links" className="addLabel">Liens</label>
-          <input type="text" id="Links" name="Links" className="smallInput" value={bandData.Links} onChange={handleBandInputChange} required />
+            <label htmlFor="Links" className="addLabel">Liens</label>
+            <input type="text" id="Links" name="Links" className="smallInput" value={bandData.Links} onChange={handleBandInputChange} required />
           </div>
         </div>
 

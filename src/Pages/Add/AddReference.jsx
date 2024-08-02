@@ -7,15 +7,17 @@ import pb from '../../pocketbase';
 const AddReference = () => {
   const [groups, setGroups] = useState([]);
   const [labels, setLabels] = useState([]);
+  const [genres, setGenres] = useState([]);
+  const [selectedGenres, setSelectedGenres] = useState([]);
   const [referenceData, setReferenceData] = useState({
     cover: null,
     name: '',
     year: '',
-    genre: '',
+    genreId: [],
     labelId: '',
     versions: '',
     bandId: '',
-    tracklist: [], // Ajout de l'état tracklist
+    tracklist: [],
   });
   const [track, setTrack] = useState({
     trackNumber: '',
@@ -25,19 +27,20 @@ const AddReference = () => {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    const fetchGroups = async () => {
+    const fetchData = async () => {
       try {
-        const groupsList = await pb.collection('Band').getFullList();
-        setGroups(groupsList);
-
-        const labelsList = await pb.collection('Label').getFullList();
-        setLabels(labelsList);
+        const bands = await pb.collection('Band').getFullList();
+        const labels = await pb.collection('Label').getFullList();
+        const genres = await pb.collection('Genre').getFullList();
+        setGroups(bands);
+        setLabels(labels);
+        setGenres(genres);
       } catch (error) {
-        console.error('Error fetching groups:', error);
+        console.error('Error fetching data:', error);
       }
     };
 
-    fetchGroups();
+    fetchData();
   }, []);
 
   const handleInputChange = (e) => {
@@ -54,47 +57,54 @@ const AddReference = () => {
     setTrack({ ...track, [name]: value });
   };
 
-  const handleAddTrack = () => {
+  const addTrack = () => {
     setReferenceData({
       ...referenceData,
       tracklist: [...referenceData.tracklist, track]
     });
-    setTrack({ trackNumber: '', trackName: '', trackDuration: '' });
+    setTrack({
+      trackNumber: '',
+      trackName: '',
+      trackDuration: ''
+    });
   };
 
-  const handleRemoveTrack = (index) => {
-    const updatedTracklist = referenceData.tracklist.filter((_, i) => i !== index);
-    setReferenceData({
-      ...referenceData,
-      tracklist: updatedTracklist
-    });
+  const handleGenreSelectChange = (e) => {
+    const selectedGenreId = e.target.value;
+    if (selectedGenreId && !selectedGenres.includes(selectedGenreId)) {
+      setSelectedGenres([...selectedGenres, selectedGenreId]);
+    }
+  };
+
+  const handleGenreRemove = (genreId) => {
+    setSelectedGenres(selectedGenres.filter((id) => id !== genreId));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!referenceData.cover) {
-      setMessage('Veuillez télécharger toutes les images requises.');
+      setMessage('Veuillez télécharger la pochette.');
       return;
     }
 
     try {
-      const referenceFormData = new FormData();
-      referenceFormData.append('Cover', referenceData.cover);
-      referenceFormData.append('NameAlbum', referenceData.name);
-      referenceFormData.append('bandId', referenceData.bandId);
-      referenceFormData.append('Year', referenceData.year);
-      referenceFormData.append('Genre', referenceData.genre);
-      referenceFormData.append('labelId', referenceData.labelId);
-      referenceFormData.append('Versions', referenceData.versions);
-      referenceFormData.append('Tracklist', JSON.stringify(referenceData.tracklist)); // Ajout de la tracklist
+      const formData = new FormData();
+      formData.append('cover', referenceData.cover);
+      formData.append('name', referenceData.name);
+      formData.append('year', referenceData.year);
+      formData.append('genreId', JSON.stringify(selectedGenres));
+      formData.append('labelId', referenceData.labelId);
+      formData.append('versions', referenceData.versions);
+      formData.append('bandId', referenceData.bandId);
+      formData.append('tracklist', JSON.stringify(referenceData.tracklist));
 
-      await pb.collection('Albums').create(referenceFormData);
+      await pb.collection('Reference').create(formData);
 
       setMessage('Référence téléchargée avec succès!');
     } catch (error) {
-      console.error('Error uploading files:', error);
-      setMessage('Erreur lors du téléchargement des fichiers. Veuillez réessayer.');
+      console.error('Error uploading reference:', error);
+      setMessage('Erreur lors du téléchargement de la référence. Veuillez réessayer.');
     }
   };
 
@@ -136,31 +146,38 @@ const AddReference = () => {
 
         <div className="form-section">
           <div className="form-group">
-            <label htmlFor="bandId" className="addLabel">Groupe/Artiste</label>
-            <select id="bandId" name="bandId" className="smallInput" value={referenceData.bandId} onChange={handleInputChange} required>
-              <option value="">Sélectionner un groupe/artiste</option>
-              {groups.map((group) => (
-                <option key={group.id} value={group.id}>
-                  {group.NameBand}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="form-group">
             <label htmlFor="cover" className="addLabel">Pochette</label>
             {renderFileInputButton('cover', handleFileChange, referenceData.cover)}
           </div>
           <div className="form-group">
             <label htmlFor="name" className="addLabel">Nom</label>
-            <input type="text" id="name" name="name" className="smallInput" placeholder="Storm of the Light's Bane" value={referenceData.name} onChange={handleInputChange} required />
+            <input type="text" id="name" name="name" className="smallInput" placeholder="Album Name" value={referenceData.name} onChange={handleInputChange} required />
           </div>
           <div className="form-group">
             <label htmlFor="year" className="addLabel">Année</label>
-            <input type="text" id="year" name="year" className="smallInput" placeholder="1995" value={referenceData.year} onChange={handleInputChange} required />
+            <input type="text" id="year" name="year" className="smallInput" placeholder="1999" value={referenceData.year} onChange={handleInputChange} required />
           </div>
           <div className="form-group">
-            <label htmlFor="genre" className="addLabel">Genre</label>
-            <input type="text" id="genre" name="genre" className="smallInput" placeholder="Mélodique Black Metal" value={referenceData.genre} onChange={handleInputChange} required />
+            <label htmlFor="genreId" className="addLabel">Genre</label>
+            <select id="genreId" name="genreId" className="smallInput" onChange={handleGenreSelectChange} required>
+              <option value="">Sélectionner un genre</option>
+              {genres.map((genre) => (
+                <option key={genre.id} value={genre.id}>
+                  {genre.NameGenre}
+                </option>
+              ))}
+            </select>
+            <div className="selected-genres">
+              {selectedGenres.map((genreId) => {
+                const genre = genres.find((g) => g.id === genreId);
+                return (
+                  <div key={genreId} className="selected-genre">
+                    {genre?.NameGenre}
+                    <button type="button" onClick={() => handleGenreRemove(genreId)}>×</button>
+                  </div>
+                );
+              })}
+            </div>
           </div>
           <div className="form-group">
             <label htmlFor="labelId" className="addLabel">Label</label>
@@ -173,71 +190,49 @@ const AddReference = () => {
               ))}
             </select>
           </div>
+        </div>
+
+        <div className="form-section">
+          <div className="form-group">
+            <label htmlFor="bandId" className="addLabel">Groupe</label>
+            <select id="bandId" name="bandId" className="smallInput" value={referenceData.bandId} onChange={handleInputChange} required>
+              <option value="">Sélectionner un groupe</option>
+              {groups.map((group) => (
+                <option key={group.id} value={group.id}>
+                  {group.NameBand}
+                </option>
+              ))}
+            </select>
+          </div>
           <div className="form-group">
             <label htmlFor="versions" className="addLabel">Versions</label>
             <input type="text" id="versions" name="versions" className="smallInput" value={referenceData.versions} onChange={handleInputChange} required />
           </div>
         </div>
 
-        <h3 className="add-title">Tracklist</h3>
         <div className="form-section">
           <div className="form-group">
-            <label htmlFor="trackNumber" className="addLabel">Numéro de piste</label>
-            <input
-              type="number"
-              id="trackNumber"
-              name="trackNumber"
-              className="smallInput"
-              value={track.trackNumber}
-              onChange={handleTrackChange}
-              placeholder="1"
-            />
+            <label className="addLabel">Tracklist</label>
+            {referenceData.tracklist.map((track, index) => (
+              <div key={index} className="track">
+                {track.trackNumber}. {track.trackName} - {track.trackDuration}
+              </div>
+            ))}
+            <input type="text" name="trackNumber" className="smallInput" placeholder="N°" value={track.trackNumber} onChange={handleTrackChange} />
+            <input type="text" name="trackName" className="smallInput" placeholder="Nom" value={track.trackName} onChange={handleTrackChange} />
+            <input type="text" name="trackDuration" className="smallInput" placeholder="Durée" value={track.trackDuration} onChange={handleTrackChange} />
+            <button type="button" className="download-button" onClick={addTrack}>Ajouter une piste</button>
           </div>
-          <div className="form-group">
-            <label htmlFor="trackName" className="addLabel">Nom de la piste</label>
-            <input
-              type="text"
-              id="trackName"
-              name="trackName"
-              className="smallInput"
-              value={track.trackName}
-              onChange={handleTrackChange}
-              placeholder="At The Fathomless Depths"
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="trackDuration" className="addLabel">Durée de la piste</label>
-            <input
-              type="text"
-              id="trackDuration"
-              name="trackDuration"
-              className="smallInput"
-              value={track.trackDuration}
-              onChange={handleTrackChange}
-              placeholder="1:56"
-            />
-          </div>
-          <button type="button" className="button" onClick={handleAddTrack}>
-            Ajouter une piste
-          </button>
         </div>
 
-        <ul>
-          {referenceData.tracklist.map((track, index) => (
-            <li key={index}>
-              {track.trackNumber}. {track.trackName} - {track.trackDuration}
-              <button type="button" onClick={() => handleRemoveTrack(index)} className="remove-track-button">
-                Supprimer
-              </button>
-            </li>
-          ))}
-        </ul>
-
-        <button type="submit" className="button">Envoyer</button>
-        {message && <p className="messageSubmit">{message}</p>}
+        <div className="form-section">
+          <button type="submit" className="download-button">Télécharger</button>
+          {message && <div className="message">{message}</div>}
+        </div>
       </form>
     </div>
   );
 };
 
 export default AddReference;
+
