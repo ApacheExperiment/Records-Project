@@ -13,11 +13,13 @@ import ProfileAdmin from '../Pages/Admin/ProfileAdmin';
 import Band from '../Pages/Label&Band/Band';
 import Record from '../Pages/Record/Record';
 import Label from '../Pages/Label&Band/Label';
+import Format from '../Pages/Format/Format'
+import Genre from '../Pages/Genre/Genre'
 import AddBand from '../Pages/Add/AddBand';
 import AddReference from '../Pages/Add/AddReference';
 import AddLabel from '../Pages/Add/AddLabel';
 import Error from '../Pages/Error/Error';
-
+//import PageTest from '../Pages/PageTest'
 
 
 
@@ -29,8 +31,10 @@ export default function Router() {
             <Header active="home" />
             <Routes>
                 <Route path="/" element={<Home />}/>
-                <Route path="login" element={<Login />}/>
-                <Route path="register" element={<Register />}/>
+                <Route path="/login" element={<Login />}/>
+                <Route path="/register" element={<Register />}/>
+                <Route path="/format" element={<Format />} />
+                <Route path="/genre" element={<Genre />} />
                 <Route
                     path="/add-band"
                     element={  
@@ -83,6 +87,7 @@ export default function Router() {
                 <Route path="/record/:albumId" element={<Record/>}/>
                 <Route path="/label/:labelId" element={<Label/>}/>
                 <Route path="*" element={<Error />}/>
+                {/*<Route path="/pagetest" element={<PageTest/>} />*/}
             </Routes>
             <Footer />
         </>

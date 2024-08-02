@@ -6,22 +6,26 @@ import './thumbnails.scss';
 
 function LastAdditions() {
     const [latestAlbums, setLatestAlbums] = useState([]);
+    //const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchLatestAlbums = async () => {
             try {
-                const response = await pb.collection('Albums').getList(1, 5, {
-                    sort: '-created' // Trie par date de création descendante
+                const response = await pb.collection('Albums').getList(1, 10, {
+                    sort: '-created', // Trie par date de création descendante
+                    expand: 'bandId', // Récupère les données associées du groupe
                 });
 
-                const albumsWithBandData = await Promise.all(response.items.map(async (album) => {
-                    const bandResponse = await pb.collection('Band').getOne(album.bandId);
-                    return { ...album, bandData: bandResponse };
+                const albumsWithBandData = response.items.map((album) => ({
+                    ...album,
+                    bandData: album.expand.bandId,
                 }));
 
+                console.log('Fetched albums:', albumsWithBandData);
                 setLatestAlbums(albumsWithBandData);
             } catch (error) {
-                console.error('Error fetching latest albums:', error);
+                //console.error('Error fetching latest albums:', error);
+                //setError('Une erreur est survenue lors de la récupération des derniers albums.');
             }
         };
 
@@ -31,6 +35,7 @@ function LastAdditions() {
     return (
         <div className="container-thumbnails">
             <h3 className="title-thumbnails">Les derniers ajouts</h3>
+            {/*error && <div className="error-message">{error}</div>*/}
             <div className="thumbnails">
                 {latestAlbums.map((album) => (
                     <div key={album.id} className="thumbnail">
@@ -44,18 +49,16 @@ function LastAdditions() {
                             <div className="placeholder-thumbnail">No cover</div>
                         )}
                         <div className="thumbnail-details">
-                            <br/>
                             {album.bandData && (
-                                    <Link to={`/band/${album.bandData.id}`} className="thumbnail-title">
-                                        {album.bandData.NameBand}
-                                    </Link>
-                                )}<br></br> 
-                                <br/>
-                                <Link to={`/record/${album.id}`} className="thumbnail-title">
-                                    {album.NameAlbum}
+                                <Link to={`/band/${album.bandData.id}`} className="thumbnail-title">
+                                    {album.bandData.NameBand}
                                 </Link>
-                                <p className="thumbnail-text">{album.Year}</p>
-                                <p className="thumbnail-text">{album.Genre}</p>
+                            )}
+                            <Link to={`/record/${album.id}`} className="thumbnail-title">
+                                {album.NameAlbum}
+                            </Link>
+                            <p className="thumbnail-text">{album.Year}</p>
+                            <p className="thumbnail-text">{album.Genre}</p>
                         </div>
                     </div>
                 ))}
@@ -71,4 +74,5 @@ function LastAdditions() {
     );
 }
 
-export default LastAdditions; 
+export default LastAdditions;
+

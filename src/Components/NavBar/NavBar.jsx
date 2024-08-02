@@ -57,6 +57,12 @@ function NavBar() {
                 navigate(`/label/${label.id}`);
             } else if (albumResponse.length > 0) {
                 const album = albumResponse[0];
+
+                // Incrémentez le compteur de recherche pour l'album trouvé
+                await pb.collection('Albums').update(album.id, {
+                    searchCount: (album.searchCount || 0) + 1,
+                });
+                
                 navigate(`/record/${album.id}`);
             } else {
                 alert('No results found.');

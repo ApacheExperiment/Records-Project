@@ -2,7 +2,7 @@ import React from "react";
 import ArrowRight from '../../assets/img/Icon/arrow-right.png'
 import './thumbnails.scss';
 
-function LatestAdditions() {
+function LatestMostSearched() {
 
     return (
         <div className="container-thumbnails">
@@ -25,4 +25,4 @@ function LatestAdditions() {
     );
 }
 
-export default LatestAdditions; 
+export default LatestMostSearched; 

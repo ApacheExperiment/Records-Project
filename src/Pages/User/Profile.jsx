@@ -14,7 +14,7 @@ function Profile() {
                     const userData = await pb.collection('users').authRefresh();
                     setUser(userData.record);
                 } catch (error) {
-                    console.error('Erreur lors de la récupération de l\'utilisateur:', error);
+                    //console.error('Erreur lors de la récupération de l\'utilisateur:', error);
                 }
             }
         };

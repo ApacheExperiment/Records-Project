@@ -12,7 +12,7 @@ function Record() {
     useEffect(() => {
         const fetchAlbum = async () => {
             try {
-                const response = await pb.collection('Albums').getOne(albumId, { expand: 'bandId,labelId' });
+                const response = await pb.collection('Albums').getOne(albumId, { expand: 'bandId, labelId' });
                 setAlbum(response);
                 if (response.expand.bandId) {
                     const bandResponse = await pb.collection('Band').getOne(response.expand.bandId.id);

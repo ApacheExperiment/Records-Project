@@ -6,6 +6,12 @@ import imagePaths from './imagePaths';
 const IconGroup = ({ handleItemClick, activeItem, activeSubItem, setActiveSubItem }) => {
     const navigate = useNavigate();
 
+    const goToAddFormat = () => {
+        navigate('/format');
+    };
+    const goToAddGenre = () => {
+        navigate('/genre');
+    };
     const goToAddBand = () => {
         navigate('/add-band');
     };
@@ -35,7 +41,7 @@ const IconGroup = ({ handleItemClick, activeItem, activeSubItem, setActiveSubIte
             {activeItem === 'explorer' && (
                 <div className="submenu">
                     <div className="wrap-submenu">
-                        <button className="button-submenu" onClick={() => setActiveSubItem('format')}>
+                        <button className="button-submenu" onClick={() => { setActiveSubItem('format'); goToAddFormat(); }}>
                             <IconItem
                                 initialIcon={imagePaths.format.initial}
                                 activeIcon={imagePaths.format.active}
@@ -45,7 +51,7 @@ const IconGroup = ({ handleItemClick, activeItem, activeSubItem, setActiveSubIte
                             />
                             Format
                         </button>
-                        <button className="button-submenu" onClick={() => setActiveSubItem('genre')}>
+                        <button className="button-submenu" onClick={() => { setActiveSubItem('genre'); goToAddGenre(); }}>
                             <IconItem
                                 initialIcon={imagePaths.genre.initial}
                                 activeIcon={imagePaths.genre.active}
