@@ -4,14 +4,13 @@ import './add.scss';
 import arrow from '../../assets/img/Icon/icon-arrow-left.webp';
 import pb from '../../pocketbase';
 
-const AddBand = () => {
-  const [bandData, setBandData] = useState({
-    NameBand: '',
-    LogoBand: null,
-    StatusBand: '',
-    FormedIn: '',
-    YearOfActivity: '',
-    LocationBand: '',
+const AddArtist = () => {
+  const [artistData, setArtistData] = useState({
+    NameArtist: '',
+    LogoArtist: null,
+    StatusArtist: '',
+    YearOfCareer: '',
+    LocationArtist: '',
     CurrentLabel: '',
     genreId: [],
     Links: '',
@@ -37,11 +36,11 @@ const AddBand = () => {
 
   const handleBandInputChange = (e) => {
     const { name, value } = e.target;
-    setBandData({ ...bandData, [name]: value });
+    setArtistData({ ...artistData, [name]: value });
   };
 
   const handleBandFileChange = (e) => {
-    setBandData({ ...bandData, LogoBand: e.target.files[0] });
+    setArtistData({ ...artistData, LogoArtist: e.target.files[0] });
   };
 
   const handleGenreSelectChange = (e) => {
@@ -58,25 +57,24 @@ const AddBand = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!bandData.LogoBand) {
+    if (!artistData.LogoArtist) {
       setMessage('Veuillez télécharger le logo requis.');
       return;
     }
 
     try {
-      const bandFormData = new FormData();
-      bandFormData.append('NameBand', bandData.NameBand);
-      bandFormData.append('LogoBand', bandData.LogoBand);
-      bandFormData.append('StatusBand', bandData.StatusBand);
-      bandFormData.append('FormedIn', bandData.FormedIn);
-      bandFormData.append('YearOfActivity', bandData.YearOfActivity);
-      bandFormData.append('LocationBand', bandData.LocationBand);
-      bandFormData.append('CurrentLabel', bandData.CurrentLabel);
-      bandFormData.append('genreId', JSON.stringify(selectedGenres));
-      bandFormData.append('Links', bandData.Links);
-      bandFormData.append('Biography', bandData.Biography);
+      const artistFormData = new FormData();
+      artistFormData.append('NameArtist', artistData.NameArtist);
+      artistFormData.append('LogoArtist', artistData.LogoArtist);
+      artistFormData.append('StatusArtist', artistData.StatusArtist);
+      artistFormData.append('YearOfCareer', artistData.YearOfCareer);
+      artistFormData.append('LocationArtist', artistData.LocationArtist);
+      artistFormData.append('CurrentLabel', artistData.CurrentLabel);
+      artistFormData.append('genreId', JSON.stringify(selectedGenres));
+      artistFormData.append('Links', artistData.Links);
+      artistFormData.append('Biography', artistData.Biography);
 
-      await pb.collection('Band').create(bandFormData);
+      await pb.collection('Artist').create(artistFormData);
 
       setMessage('Groupe téléchargé avec succès!');
     } catch (error) {
@@ -119,42 +117,38 @@ const AddBand = () => {
           <img src={arrow} alt="return home" className="arrow" />
         </Link>
 
-        <h3 className="add-title">Groupe</h3>
+        <h3 className="add-title">Artiste</h3>
 
         <div className="form-section">
           <div className="form-group">
-            <label htmlFor="LogoBand" className="addLabel">Logo</label>
-            {renderFileInputButton('LogoBand', handleBandFileChange, bandData.LogoBand)}
+            <label htmlFor="LogoArtist" className="addLabel">Logo</label>
+            {renderFileInputButton('LogoArtist', handleBandFileChange, artistData.LogoArtist)}
           </div>
           <div className="form-group">
-            <label htmlFor="NameBand" className="addLabel">Nom</label>
-            <input type="text" id="NameBand" name="NameBand" className="smallInput" placeholder="Darkthrone" value={bandData.NameBand} onChange={handleBandInputChange} required />
+            <label htmlFor="NameArtist" className="addLabel">Nom</label>
+            <input type="text" id="NameArtist" name="NameArtist" className="smallInput" placeholder="Fenriz" value={artistData.NameBand} onChange={handleBandInputChange} required />
           </div>
           <div className="form-group">
-            <label htmlFor="StatusBand" className="addLabel">Status</label>
-            <input type="text" id="StatusBand" name="StatusBand" className="smallInput" placeholder="Actif" value={bandData.StatusBand} onChange={handleBandInputChange} required />
+            <label htmlFor="StatusArtist" className="addLabel">Status</label>
+            <input type="text" id="StatusArtist" name="StatusArtist" className="smallInput" placeholder="Actif" value={artistData.StatusBand} onChange={handleBandInputChange} required />
           </div>
           <div className="form-group">
-            <label htmlFor="FormedIn" className="addLabel">Formé en</label>
-            <input type="text" id="FormedIn" name="FormedIn" className="smallInput" placeholder="1987" value={bandData.FormedIn} onChange={handleBandInputChange} required />
-          </div>
-          <div className="form-group">
-            <label htmlFor="YearOfActivity" className="addLabel">Années d'activité</label>
-            <input type="text" id="YearOfActivity" name="YearOfActivity" className="smallInput" placeholder="1987 à maintenant" value={bandData.YearOfActivity} onChange={handleBandInputChange} required />
+            <label htmlFor="YearOfCareer" className="addLabel">Années d'activité</label>
+            <input type="text" id="YearOfCareer" name="YearOfActivity" className="smallInput" placeholder="1987 à maintenant" value={artistData.YearOfActivity} onChange={handleBandInputChange} required />
           </div>
         </div>
 
         <div className="form-section">
           <div className="form-group">
-            <label htmlFor="LocationBand" className="addLabel">Localisation</label>
-            <input type="text" id="LocationBand" name="LocationBand" className="smallInput" placeholder="Norway, Vinterbro, Ås, Akershus / Trysil, Innlandet" value={bandData.LocationBand} onChange={handleBandInputChange} required />
+            <label htmlFor="LocationArtist" className="addLabel">Localisation</label>
+            <input type="text" id="LocationArtist" name="LocationArtist" className="smallInput" placeholder="Norway, Vinterbro, Ås, Akershus / Trysil, Innlandet" value={artistData.LocationArtist} onChange={handleBandInputChange} required />
           </div>
         </div>
 
         <div className="form-section">
           <div className="form-group">
             <label htmlFor="CurrentLabel" className="addLabel">Label Actuel</label>
-            <input type="text" id="CurrentLabel" name="CurrentLabel" className="smallInput" placeholder="Peaceville Records" value={bandData.CurrentLabel} onChange={handleBandInputChange} required />
+            <input type="text" id="CurrentLabel" name="CurrentLabel" className="smallInput" placeholder="Peaceville Records" value={artistData.CurrentLabel} onChange={handleBandInputChange} required />
           </div>
           <div className="form-group">
             <label htmlFor="genreId" className="addLabel">Genre</label>
@@ -180,14 +174,14 @@ const AddBand = () => {
           </div>
           <div className="form-group">
             <label htmlFor="Links" className="addLabel">Liens</label>
-            <input type="text" id="Links" name="Links" className="smallInput" value={bandData.Links} onChange={handleBandInputChange} required />
+            <input type="text" id="Links" name="Links" className="smallInput" value={artistData.Links} onChange={handleBandInputChange} required />
           </div>
         </div>
 
         <div className="form-section">
           <div className="form-group">
             <label htmlFor="Biography" className="addLabel">Biographie</label>
-            <textarea id="Biography" name="Biography" className="addTextarea" value={bandData.Biography} onChange={handleBandInputChange} required></textarea>
+            <textarea id="Biography" name="Biography" className="addTextarea" value={artistData.Biography} onChange={handleBandInputChange} required></textarea>
           </div>
         </div>
 
@@ -198,4 +192,4 @@ const AddBand = () => {
   );
 };
 
-export default AddBand;
+export default AddArtist;

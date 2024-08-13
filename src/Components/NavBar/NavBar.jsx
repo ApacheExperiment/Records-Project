@@ -41,6 +41,9 @@ function NavBar() {
             const bandResponse = await pb.collection('Band').getFullList({
                 filter: `NameBand ~ "${searchTerm}"`,
             });
+            const artistResponse = await pb.collection('Artist').getFullList({
+                filter: `NameArtist ~ "${searchTerm}"`,
+            });
             const labelResponse = await pb.collection('Label').getFullList({
                 filter: `NameLabel ~ "${searchTerm}"`, // Case-insensitive search
             });
@@ -52,6 +55,9 @@ function NavBar() {
             if (bandResponse.length > 0) {
                 const band = bandResponse[0];
                 navigate(`/band/${band.id}`);
+            } else if (artistResponse.length > 0) {
+                const artist = artistResponse[0];
+                navigate(`/artist/${artist.id}`);
             } else if (labelResponse.length > 0) {
                 const label = labelResponse[0];
                 navigate(`/label/${label.id}`);

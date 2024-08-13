@@ -13,12 +13,13 @@ function LastAdditions() {
             try {
                 const response = await pb.collection('Albums').getList(1, 10, {
                     sort: '-created', // Trie par date de création descendante
-                    expand: 'bandId', // Récupère les données associées du groupe
+                    expand: 'bandId, artistId', // Récupère les données associées du groupe
                 });
 
                 const albumsWithBandData = response.items.map((album) => ({
                     ...album,
                     bandData: album.expand.bandId,
+                    artistData: album.expand.artistId,
                 }));
 
                 console.log('Fetched albums:', albumsWithBandData);
@@ -49,14 +50,20 @@ function LastAdditions() {
                             <div className="placeholder-thumbnail">No cover</div>
                         )}
                         <div className="thumbnail-details">
-                            {album.bandData && (
-                                <Link to={`/band/${album.bandData.id}`} className="thumbnail-title">
-                                    {album.bandData.NameBand}
+                            {album.bandData ? (
+                                    <Link to={`/band/${album.bandData.id}`} className="thumbnail-title">
+                                        {album.bandData.NameBand}
+                                    </Link>
+                                ) : album.artistData ? (
+                                    <Link to={`/artist/${album.artistData.id}`} className="thumbnail-title">
+                                        {album.artistData.NameArtist}
+                                    </Link>
+                                ) : (
+                                    <p className="thumbnail-title">Unknown Artist/Band</p>
+                                )}
+                                <Link to={`/record/${album.id}`} className="thumbnail-title">
+                                    {album.NameAlbum}
                                 </Link>
-                            )}
-                            <Link to={`/record/${album.id}`} className="thumbnail-title">
-                                {album.NameAlbum}
-                            </Link>
                             <p className="thumbnail-text">{album.Year}</p>
                             <p className="thumbnail-text">{album.Genre}</p>
                         </div>

@@ -15,6 +15,9 @@ const IconGroup = ({ handleItemClick, activeItem, activeSubItem, setActiveSubIte
     const goToAddBand = () => {
         navigate('/add-band');
     };
+    const goToAddArtist = () => {
+        navigate('/add-artist');
+    };
     const goToAddReference = () => {
         navigate('/add-reference');
     };
@@ -131,6 +134,16 @@ const IconGroup = ({ handleItemClick, activeItem, activeSubItem, setActiveSubIte
                                 alt="icon band"
                                 className="icon icon-band"
                                 isActive={activeSubItem === 'band'}
+                            />
+                            Band
+                        </button>
+                        <button className="button-submenu" onClick={() => { setActiveSubItem('artist'); goToAddArtist(); }}>
+                            <IconItem
+                                initialIcon={imagePaths.artist.initial}
+                                activeIcon={imagePaths.artist.active}
+                                alt="icon band"
+                                className="icon icon-band"
+                                isActive={activeSubItem === 'artist'}
                             />
                             Band
                         </button>

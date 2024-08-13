@@ -3,24 +3,36 @@ import { Link } from 'react-router-dom';
 import pb from '../../pocketbase';
 import './discography.scss';
 
-function Discography({ bandId }) {
+function Discography({ bandId, artistId  }) {
     const [albums, setAlbums] = useState([]);
 
     useEffect(() => {
         const fetchAlbums = async () => {
             try {
-                const response = await pb.collection('Albums').getFullList({
-                    filter: `bandId='${bandId}'`, // Filtre par l'ID du groupe
-                    expand: 'labelId'
-                });
-                setAlbums(response);
+                let filterCondition = '';
+
+                if (bandId) {
+                    filterCondition = `bandId='${bandId}'`;
+                } else if (artistId) {
+                    filterCondition = `artistId='${artistId}'`;
+                }
+
+                if (filterCondition) {
+                    const response = await pb.collection('Albums').getFullList({
+                        filter: filterCondition,
+                        expand: 'labelId',
+                    });
+                    setAlbums(response);
+                } else {
+                    console.warn("Neither bandId nor artistId was provided.");
+                }
             } catch (error) {
                 console.error("Error fetching albums data:", error);
             }
         };
 
         fetchAlbums();
-    }, [bandId]);
+    }, [bandId, artistId]);
 
     if (!albums.length) {
         return <div>No albums found for this band.</div>;

@@ -31,6 +31,10 @@ const imagePaths = {
         initial: require("../../../assets/img/Icon/Initial/icon-cd.webp"),
         active: require("../../../assets/img/Icon/Reverse/icon-cd-Active.webp")
     },
+    artist: {
+        initial: require("../../../assets/img/Icon/Initial/icon-artist.webp"),
+        active: require("../../../assets/img/Icon/Reverse/icon-artist-Active.webp")
+    },
     band: {
         initial: require("../../../assets/img/Icon/Initial/icon-drum.webp"),
         active: require("../../../assets/img/Icon/Reverse/icon-drum-Active.webp")

@@ -11,11 +11,13 @@ import Register from '../Pages/Register/Register';
 import Profile from '../Pages/User/Profile'
 import ProfileAdmin from '../Pages/Admin/ProfileAdmin';
 import Band from '../Pages/Label&Band/Band';
+import Artist from '../Pages/Label&Band/Artist';
 import Record from '../Pages/Record/Record';
 import Label from '../Pages/Label&Band/Label';
 import Format from '../Pages/Format/Format'
 import Genre from '../Pages/Genre/Genre'
 import AddBand from '../Pages/Add/AddBand';
+import AddArtist from '../Pages/Add/AddArtist';
 import AddReference from '../Pages/Add/AddReference';
 import AddLabel from '../Pages/Add/AddLabel';
 import Error from '../Pages/Error/Error';
@@ -41,6 +43,16 @@ export default function Router() {
                         // Route protégée, ne peut être accédée que si l'utilisateur est authentifié
                         <ProtectedRoute 
                             element={<AddBand />} 
+                            isAuthenticated={isAuthenticated} 
+                        />
+                    }
+                />
+                <Route
+                    path="/add-artist"
+                    element={  
+                        // Route protégée, ne peut être accédée que si l'utilisateur est authentifié
+                        <ProtectedRoute 
+                            element={<AddArtist />} 
                             isAuthenticated={isAuthenticated} 
                         />
                     }
@@ -84,6 +96,7 @@ export default function Router() {
                     }
                 />
                 <Route path="/band/:bandId" element={<Band/>}/>
+                <Route path="/artist/:artistId" element={<Artist/>}/>
                 <Route path="/record/:albumId" element={<Record/>}/>
                 <Route path="/label/:labelId" element={<Label/>}/>
                 <Route path="*" element={<Error />}/>
