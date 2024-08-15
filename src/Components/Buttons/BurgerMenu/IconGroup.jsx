@@ -135,7 +135,7 @@ const IconGroup = ({ handleItemClick, activeItem, activeSubItem, setActiveSubIte
                                 className="icon icon-band"
                                 isActive={activeSubItem === 'band'}
                             />
-                            Band
+                            Groupe
                         </button>
                         <button className="button-submenu" onClick={() => { setActiveSubItem('artist'); goToAddArtist(); }}>
                             <IconItem
@@ -145,7 +145,7 @@ const IconGroup = ({ handleItemClick, activeItem, activeSubItem, setActiveSubIte
                                 className="icon icon-band"
                                 isActive={activeSubItem === 'artist'}
                             />
-                            Band
+                            Artiste
                         </button>
                         <button className="button-submenu" onClick={() => { setActiveSubItem('label'); goToAddLabel(); }}>
                             <IconItem
