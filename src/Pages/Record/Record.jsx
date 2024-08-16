@@ -8,19 +8,33 @@ function Record() {
     const [album, setAlbum] = useState(null);
     const [band, setBand] = useState(null);
     const [label, setLabel] = useState(null);
+    const [genre, setGenre] = useState(null);
+    const [subGenre, setSubGenre] = useState(null);
 
     useEffect(() => {
         const fetchAlbum = async () => {
             try {
-                const response = await pb.collection('Albums').getOne(albumId, { expand: 'bandId, labelId' });
+                const response = await pb.collection('Albums').getOne(albumId, { expand: 'bandId, labelId, genreId, subGenreId' });
                 setAlbum(response);
+                
                 if (response.expand.bandId) {
                     const bandResponse = await pb.collection('Band').getOne(response.expand.bandId.id);
                     setBand(bandResponse);
                 }
+                
                 if (response.expand.labelId) {
                     const labelResponse = await pb.collection('Label').getOne(response.expand.labelId.id);
                     setLabel(labelResponse);
+                }
+                
+                if (response.expand.genreId) {
+                    const genreResponse = await pb.collection('Genre').getOne(response.expand.genreId.id);
+                    setGenre(genreResponse);
+                }
+                
+                if (response.expand.subGenreId) {
+                    const subGenreResponse = await pb.collection('SubGenre').getOne(response.expand.subGenreId.id);
+                    setSubGenre(subGenreResponse);
                 }
             } catch (error) {
                 console.error("Error fetching album data:", error);
@@ -52,7 +66,8 @@ function Record() {
                             <b>–</b>
                             <h2 className="band-record recordName">{album.NameAlbum}</h2>
                         </div>
-                        <p className="détails-record">Genre: {album.Genre}</p>
+                        <p className="détails-record">Genre: {genre ? genre.NameGenre : 'Genre non disponible'}</p>
+                        <p className="détails-record">Sous-Genre: {subGenre ? subGenre.NameSubGenre : 'Sous-genre non disponible'}</p>
                         {label ? (
                             <Link to={`/label/${label.id}`} className="details-record">
                                 {label.NameLabel}

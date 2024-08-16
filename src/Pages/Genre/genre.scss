@@ -10,9 +10,6 @@
         width: 200px;
         border-radius: 10px;
         text-align: center;
-        //border-top-right-radius: 10px;
-        //border-top-left-radius: 10px;
-        //border-bottom-right-radius: 50px;
         margin-bottom: 30px;
     }
     .genres {
@@ -23,8 +20,8 @@
         margin-bottom: 30px;
     
         .genre, .genre-image, .genre-details {
-            width: 230px;
-            height: 230px;
+            width: 210px;
+            height: 210px;
             background-color: #cec9c9;
             border-radius: 10px;
         }
@@ -73,7 +70,7 @@
     
             .genre-icon {
                 width: 130px;
-                margin-top: 10px; /* Espacement par rapport au texte */
+                margin-top: 10px;
             }
         }
     }
@@ -84,30 +81,6 @@
     }
 }
 
-@media screen and (max-width: 1440px) {
-    .container-genres {
-        .genres {
-            gap: 32px;
-            .genre, .genre-image, .genre-details  {
-                width: 210px;
-                height: 210px;
-            }
-        }
-    }
-}
-@media screen and (max-width: 1182px) {
-    .container-genres {
-        .genres {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            grid-gap: 30px;
-            .genre, .genre-image, .genre-details  {
-                width: 330px;
-                height: 330px;
-            }
-        }
-    }
-}
 @media screen and (max-width: 1024px) {
     .container-genres {
         .genres {
@@ -115,16 +88,8 @@
             grid-template-columns: repeat(2, 1fr);
             grid-gap: 20px;
             .genre, .genre-image, .genre-details  {
-                width: 370px;
-                height: 370px;
-            }
-            .genre {
-                .genre-details {
-                    font-size: 13px;
-                    .genre-title {
-                        font-size: 14px;
-                    }
-                }
+                width: 250px;
+                height: 250px;
             }
         }
     }
@@ -139,16 +104,8 @@
             grid-template-columns: repeat(1, 1fr);
             grid-gap: 10px;
             .genre, .genre-image, .genre-details  {
-                width: 330px;
-                height: 330px;
-            }
-            .genre {
-                .genre-details {
-                    font-size: 16px;
-                    .genre-title {
-                        font-size: 17px;
-                    }
-                }
+                width: 260px;
+                height: 260px;
             }
         }
     }

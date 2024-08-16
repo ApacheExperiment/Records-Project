@@ -10,14 +10,27 @@ export default function Band() {
     const { bandId } = useParams();
     const [bandData, setBandData] = useState(null);
     const [labelData, setLabelData] = useState(null);
+    const [genre, setGenre] = useState(null);
+    const [subGenre, setSubGenre] = useState(null);
 
     useEffect(() => {
         const fetchBandData = async () => {
             try {
-                const response = await pb.collection('Band').getOne(bandId, { expand: 'labelId' });
+                const response = await pb.collection('Band').getOne(bandId, { expand: 'labelId, genreId, subGenreId' });
                 setBandData(response);
+                
                 if (response.expand && response.expand.labelId) {
                     setLabelData(response.expand.labelId);
+                }
+
+                if (response.expand.genreId) {
+                    const genreResponse = await pb.collection('Genre').getOne(response.expand.genreId.id);
+                    setGenre(genreResponse);
+                }
+                
+                if (response.expand.subGenreId) {
+                    const subGenreResponse = await pb.collection('SubGenre').getOne(response.expand.subGenreId.id);
+                    setSubGenre(subGenreResponse);
                 }
             } catch (error) {
                 console.error("Error fetching band data:", error);
@@ -78,7 +91,11 @@ export default function Band() {
                     </div>
                     <div className="band__description">
                         <h3>Genre:</h3>
-                        <p className="details">{bandData.Genre}</p>
+                        <p className="details">{genre ? genre.NameGenre : 'Genre non disponible'}</p>
+                    </div>
+                    <div className="band__description">
+                        <h3>Sous-Genre:</h3>
+                        <p className="details">{subGenre ? subGenre.NameSubGenre : 'Sous-genre non disponible'}</p>
                     </div>
                     <div className="band__description">
                         <h3>Liens:</h3>

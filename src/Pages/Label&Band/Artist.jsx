@@ -10,14 +10,27 @@ export default function Artist() {
     const { artistId } = useParams();
     const [artistData, setArtistData] = useState(null);
     const [labelData, setLabelData] = useState(null);
+    const [genre, setGenre] = useState(null);
+    const [subGenre, setSubGenre] = useState(null);
 
     useEffect(() => {
         const fetchArtistData = async () => {
             try {
-                const response = await pb.collection('Artist').getOne(artistId, { expand: 'labelId' });
+                const response = await pb.collection('Artist').getOne(artistId, { expand: 'labelId, genreId, subGenreId' });
                 setArtistData(response);
                 if (response.expand && response.expand.labelId) {
                     setLabelData(response.expand.labelId);
+                }
+                if (response.expand.genreId) {
+                    const genreResponse = await pb.collection('Genre').getOne(response.expand.genreId.id);
+                    console.log("Genre response:", genreResponse);
+                    setGenre(genreResponse);
+                }
+                
+                if (response.expand.subGenreId) {
+                    const subGenreResponse = await pb.collection('SubGenre').getOne(response.expand.subGenreId.id);
+                    console.log("SubGenre response:", subGenreResponse);
+                    setSubGenre(subGenreResponse);
                 }
             } catch (error) {
                 console.error("Error fetching artist data:", error);
@@ -74,7 +87,11 @@ export default function Artist() {
                     </div>
                     <div className="band__description">
                         <h3>Genre:</h3>
-                        <p className="details">{artistData.Genre}</p>
+                        <p className="details">{genre ? genre.NameGenre : 'Genre non disponible'}</p>
+                    </div>
+                    <div className="band__description">
+                        <h3>Sous-Genre:</h3>
+                        <p className="details">{subGenre ? subGenre.NameSubGenre : 'Sous-genre non disponible'}</p>
                     </div>
                     <div className="band__description">
                         <h3>Liens:</h3>

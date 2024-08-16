@@ -16,7 +16,7 @@ import Record from '../Pages/Record/Record';
 import Label from '../Pages/Label&Band/Label';
 import Format from '../Pages/Format/Format';
 import Genre from '../Pages/Genre/Genre';
-import SubGenre from '../Pages/SubGenre/SubGenre';
+import SubGenre from '../Pages/Genre/SubGenre';
 import AddBand from '../Pages/Add/AddBand';
 import AddArtist from '../Pages/Add/AddArtist';
 import AddReference from '../Pages/Add/AddReference';

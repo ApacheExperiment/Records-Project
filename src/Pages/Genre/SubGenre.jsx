@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import pb from '../../pocketbase';
 import ArrowRight from '../../assets/img/Icon/arrow-right.png';
-import './subGenre.scss';
+import './genre.scss';
 
 export default function SubGenre() {
     const { genreId } = useParams(); // Récupère l'ID du genre depuis l'URL
