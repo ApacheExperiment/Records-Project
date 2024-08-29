@@ -6,11 +6,17 @@ import imagePaths from './imagePaths';
 const IconGroup = ({ handleItemClick, activeItem, activeSubItem, setActiveSubItem }) => {
     const navigate = useNavigate();
 
-    const goToAddFormat = () => {
+    const goToFormat = () => {
         navigate('/format');
     };
-    const goToAddGenre = () => {
+    const goToGenre = () => {
         navigate('/genre');
+    };
+    const goToArtists = () => {
+        navigate('/artists');
+    };
+    const goToYears = () => {
+        navigate('/years');
     };
     const goToAddBand = () => {
         navigate('/add-band');
@@ -44,7 +50,7 @@ const IconGroup = ({ handleItemClick, activeItem, activeSubItem, setActiveSubIte
             {activeItem === 'explorer' && (
                 <div className="submenu">
                     <div className="wrap-submenu">
-                        <button className="button-submenu" onClick={() => { setActiveSubItem('format'); goToAddFormat(); }}>
+                        <button className="button-submenu" onClick={() => { setActiveSubItem('format'); goToFormat(); }}>
                             <IconItem
                                 initialIcon={imagePaths.format.initial}
                                 activeIcon={imagePaths.format.active}
@@ -54,7 +60,7 @@ const IconGroup = ({ handleItemClick, activeItem, activeSubItem, setActiveSubIte
                             />
                             Format
                         </button>
-                        <button className="button-submenu" onClick={() => { setActiveSubItem('genre'); goToAddGenre(); }}>
+                        <button className="button-submenu" onClick={() => { setActiveSubItem('genre'); goToGenre(); }}>
                             <IconItem
                                 initialIcon={imagePaths.genre.initial}
                                 activeIcon={imagePaths.genre.active}
@@ -63,6 +69,26 @@ const IconGroup = ({ handleItemClick, activeItem, activeSubItem, setActiveSubIte
                                 isActive={activeSubItem === 'genre'}
                             />
                             Genre
+                        </button>
+                        <button className="button-submenu" onClick={() => { setActiveSubItem('artists'); goToArtists(); }}>
+                            <IconItem
+                                initialIcon={imagePaths.bandArtist.initial}
+                                activeIcon={imagePaths.bandArtist.active}
+                                alt="icon genre"
+                                className="icon icon-band"
+                                isActive={activeSubItem === 'artists'}
+                            />
+                            Artistes
+                        </button>
+                        <button className="button-submenu" onClick={() => { setActiveSubItem('years'); goToYears(); }}>
+                            <IconItem
+                                initialIcon={imagePaths.years.initial}
+                                activeIcon={imagePaths.years.active}
+                                alt="icon genre"
+                                className="icon icon-calendar"
+                                isActive={activeSubItem === 'years'}
+                            />
+                            Années
                         </button>
                     </div>
                 </div>

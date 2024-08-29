@@ -19,20 +19,24 @@ const AddBand = () => {
   });
 
   const [genres, setGenres] = useState([]);
+  const [labels, setLabels] = useState([]);
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    const fetchGenres = async () => {
+    const fetchGenresAndLabels = async () => {
       try {
         const genresList = await pb.collection('Genre').getFullList();
+        const labelsList = await pb.collection('Label').getFullList();
+
         setGenres(genresList);
+        setLabels(labelsList);
       } catch (error) {
         console.error('Error fetching genres:', error);
       }
     };
 
-    fetchGenres();
+    fetchGenresAndLabels();
   }, []);
 
   const handleBandInputChange = (e) => {
@@ -71,7 +75,7 @@ const AddBand = () => {
       bandFormData.append('FormedIn', bandData.FormedIn);
       bandFormData.append('YearOfActivity', bandData.YearOfActivity);
       bandFormData.append('LocationBand', bandData.LocationBand);
-      bandFormData.append('CurrentLabel', bandData.CurrentLabel);
+      //bandFormData.append('CurrentLabel', bandData.CurrentLabel);
       bandFormData.append('genreId', JSON.stringify(selectedGenres));
       bandFormData.append('Links', bandData.Links);
       bandFormData.append('Biography', bandData.Biography);
@@ -152,9 +156,23 @@ const AddBand = () => {
         </div>
 
         <div className="form-section">
-          <div className="form-group">
+        <div className="form-group">
             <label htmlFor="CurrentLabel" className="addLabel">Label Actuel</label>
-            <input type="text" id="CurrentLabel" name="CurrentLabel" className="smallInput" placeholder="Peaceville Records" value={bandData.CurrentLabel} onChange={handleBandInputChange} required />
+            <select
+              id="CurrentLabel"
+              name="CurrentLabel"
+              className="smallInput"
+              value={bandData.CurrentLabel}
+              onChange={handleBandInputChange}
+              required
+            >
+              <option value="">Sélectionner un label</option>
+              {labels.map((label) => (
+                <option key={label.id} value={label.id}>
+                  {label.NameLabel}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="form-group">
             <label htmlFor="genreId" className="addLabel">Genre</label>

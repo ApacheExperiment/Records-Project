@@ -16,6 +16,8 @@ import Record from '../Pages/Record/Record';
 import Label from '../Pages/Label&Band/Label';
 import Format from '../Pages/Format/Format';
 import Genre from '../Pages/Genre/Genre';
+import Artists from '../Pages/Artists/Artists';
+import Years from '../Pages/Years/Years';
 import SubGenre from '../Pages/Genre/SubGenre';
 import AddBand from '../Pages/Add/AddBand';
 import AddArtist from '../Pages/Add/AddArtist';
@@ -39,6 +41,8 @@ export default function Router() {
                 <Route path="/format" element={<Format />} />
                 <Route path="/genre" element={<Genre />} />
                 <Route path="/subgenre/:genreId" element={<SubGenre />} />
+                <Route path="/artists" element={<Artists />} />
+                <Route path="/years" element={<Years />} />
                 <Route
                     path="/add-band"
                     element={  

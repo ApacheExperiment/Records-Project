@@ -19,6 +19,14 @@ const imagePaths = {
         initial: require("../../../assets/img/Icon/Initial/icon-micro.webp"),
         active: require("../../../assets/img/Icon/Reverse/icon-micro-Active.webp")
     },
+    bandArtist: {
+        initial: require("../../../assets/img/Icon/Initial/icon-BandArtist.webp"),
+        active: require("../../../assets/img/Icon/Reverse/icon-BandArtist-Active.webp")
+    },
+    years: {
+        initial: require("../../../assets/img/Icon/Initial/icon-Années.webp"),
+        active: require("../../../assets/img/Icon/Reverse/icon-Années-Active.webp")
+    },
     buy: {
         initial: require("../../../assets/img/Icon/Initial/icon-caddy.webp"),
         active: require("../../../assets/img/Icon/Reverse/icon-caddy-Active.webp")
