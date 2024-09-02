@@ -10,14 +10,14 @@ const AddReference = () => {
   const [genres, setGenres] = useState([]);
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [referenceData, setReferenceData] = useState({
-    cover: null,
-    name: '',
-    year: '',
+    Cover: null,
+    NameAlbum: '',
+    Year: '',
     genreId: [],
     labelId: '',
-    versions: '',
+    Versions: '',
     bandId: '',
-    tracklist: [],
+    Tracklist: [],
   });
   const [track, setTrack] = useState({
     trackNumber: '',
@@ -49,7 +49,7 @@ const AddReference = () => {
   };
 
   const handleFileChange = (e) => {
-    setReferenceData({ ...referenceData, cover: e.target.files[0] });
+    setReferenceData({ ...referenceData, Cover: e.target.files[0] });
   };
 
   const handleTrackChange = (e) => {
@@ -60,7 +60,7 @@ const AddReference = () => {
   const addTrack = () => {
     setReferenceData({
       ...referenceData,
-      tracklist: [...referenceData.tracklist, track]
+      Tracklist: [...referenceData.Tracklist, track]
     });
     setTrack({
       trackNumber: '',
@@ -83,23 +83,23 @@ const AddReference = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!referenceData.cover) {
+    if (!referenceData.Cover) {
       setMessage('Veuillez télécharger la pochette.');
       return;
     }
 
     try {
       const formData = new FormData();
-      formData.append('cover', referenceData.cover);
-      formData.append('name', referenceData.name);
-      formData.append('year', referenceData.year);
+      formData.append('Cover', referenceData.Cover);
+      formData.append('NameAlbum', referenceData.NameAlbum);
+      formData.append('Year', referenceData.Year);
       formData.append('genreId', JSON.stringify(selectedGenres));
       formData.append('labelId', referenceData.labelId);
-      formData.append('versions', referenceData.versions);
+      formData.append('Versions', referenceData.Versions);
       formData.append('bandId', referenceData.bandId);
-      formData.append('tracklist', JSON.stringify(referenceData.tracklist));
+      formData.append('Tracklist', JSON.stringify(referenceData.Tracklist));
 
-      await pb.collection('Reference').create(formData);
+      await pb.collection('Albums').create(formData);
 
       setMessage('Référence téléchargée avec succès!');
     } catch (error) {
@@ -146,16 +146,16 @@ const AddReference = () => {
 
         <div className="form-section">
           <div className="form-group">
-            <label htmlFor="cover" className="addLabel">Pochette</label>
-            {renderFileInputButton('cover', handleFileChange, referenceData.cover)}
+            <label htmlFor="Cover" className="addLabel">Pochette</label>
+            {renderFileInputButton('Cover', handleFileChange, referenceData.Cover)}
           </div>
           <div className="form-group">
-            <label htmlFor="name" className="addLabel">Nom</label>
-            <input type="text" id="name" name="name" className="smallInput" placeholder="Album Name" value={referenceData.name} onChange={handleInputChange} required />
+            <label htmlFor="NameAlbum" className="addLabel">Nom</label>
+            <input type="text" id="NameAlbum" name="NameAlbum" className="smallInput" placeholder="Album Name" value={referenceData.NameAlbum} onChange={handleInputChange} required />
           </div>
           <div className="form-group">
-            <label htmlFor="year" className="addLabel">Année</label>
-            <input type="text" id="year" name="year" className="smallInput" placeholder="1999" value={referenceData.year} onChange={handleInputChange} required />
+            <label htmlFor="Year" className="addLabel">Année</label>
+            <input type="text" id="Year" name="Year" className="smallInput" placeholder="1999" value={referenceData.Year} onChange={handleInputChange} required />
           </div>
           <div className="form-group">
             <label htmlFor="genreId" className="addLabel">Genre</label>
@@ -205,15 +205,15 @@ const AddReference = () => {
             </select>
           </div>
           <div className="form-group">
-            <label htmlFor="versions" className="addLabel">Versions</label>
-            <input type="text" id="versions" name="versions" className="smallInput" value={referenceData.versions} onChange={handleInputChange} required />
+            <label htmlFor="Versions" className="addLabel">Versions</label>
+            <input type="text" id="Versions" name="Versions" className="smallInput" value={referenceData.Versions} onChange={handleInputChange} required />
           </div>
         </div>
 
         <div className="form-section">
           <div className="form-group">
             <label className="addLabel">Tracklist</label>
-            {referenceData.tracklist.map((track, index) => (
+            {referenceData.Tracklist.map((track, index) => (
               <div key={index} className="track">
                 {track.trackNumber}. {track.trackName} - {track.trackDuration}
               </div>
@@ -235,4 +235,3 @@ const AddReference = () => {
 };
 
 export default AddReference;
-

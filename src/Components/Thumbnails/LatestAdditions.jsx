@@ -13,7 +13,7 @@ function LastAdditions() {
             try {
                 const response = await pb.collection('Albums').getList(1, 10, {
                     sort: '-created', // Trie par date de création descendante
-                    expand: 'bandId, artistId', // Récupère les données associées du groupe
+                    expand: 'bandId, artistId, genreId', // Récupère les données associées du groupe
                 });
 
                 const albumsWithBandData = response.items.map((album) => ({
@@ -65,7 +65,7 @@ function LastAdditions() {
                                     {album.NameAlbum}
                                 </Link>
                             <p className="thumbnail-text">{album.Year}</p>
-                            <p className="thumbnail-text">{album.Genre}</p>
+                            <p className="thumbnail-text">{album.expand.genreId?.NameGenre || 'Unknown Genre'}</p>
                         </div>
                     </div>
                 ))}
